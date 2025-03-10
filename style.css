@@ -1,0 +1,17 @@
+.navbar navbar-expand-lg navbar-dark bg-dark {
+    background: linear-gradient(300deg, #00bfff, #ff4c68, #ef8172);
+    background-size: 180% 180%;
+    animation: gradient-animation 18s ease infinite;
+  }
+
+
+html {background-color: white}
+
+
+
+.search-icon {
+  width: 24px;
+  height: 24px;
+  color: #333; /* 색상 변경 가능 */
+  margin-right: 40px; /* 오른쪽 여백 추가 */
+}
