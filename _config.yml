@@ -1,7 +1,7 @@
 title: Lynn Blog
 description: Business grad diving into data — building skills, asking questions, making sense of the noise. 🍵
 author: Hyelin yu
-theme: minimal
+theme: theme: jekyll-theme-minimal
 
 # 언어 설정🍵
 lang: ko
