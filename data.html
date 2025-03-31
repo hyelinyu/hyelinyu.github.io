@@ -1,16 +1,44 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Data Analyst - Lynn Blog</title>
-  <link rel="stylesheet" href="index.html">
   <style>
     body { font-family: Georgia, serif; background: #fff; color: #000; padding: 2rem; line-height: 1.6; }
+
     nav ul { list-style: none; padding: 0; display: flex; gap: 1rem; }
-    nav ul li a { text-decoration: none; color: #03a; font-weight: bold; }
-    .card { display: flex; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; margin: 1rem 0; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+    nav ul li a {
+      text-decoration: none;
+      color: #999;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+    nav ul li a:hover {
+      color: #03a;
+    }
+    nav ul li a.active {
+      color: #03a;
+    }
+
+    .card {
+      display: flex;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 1rem 0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
     .card-text { flex: 2; padding: 1rem; }
-    .card-thumb { flex: 1; background-color: #444; color: #fff; display: flex; justify-content: center; align-items: center; font-weight: bold; }
+    .card-thumb {
+      flex: 1;
+      background-color: #444;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+    }
     .card h4 { margin: 0.5rem 0; }
     .category { font-size: 0.9rem; color: #0046b8; font-weight: bold; }
     .date { font-size: 0.8rem; color: #666; }
@@ -18,11 +46,11 @@
 </head>
 <body>
   <header>
-    <h1><a href="index.html" style="text-decoration: none; color: inherit;">Lynn Blog - Data Analyst</a></h1>
+    <h1><a href="index.html" style="text-decoration: none; color: inherit;">Lynn Blog</a></h1>
     <nav>
       <ul>
         <li><a href="index.html">Home</a></li>
-        <li><a href="data.html">Data Analyst</a></li>
+        <li><a href="data.html" class="active">Data Analyst</a></li>
         <li><a href="movies.html">Movies / Books</a></li>
         <li><a href="about.html">About</a></li>
       </ul>
