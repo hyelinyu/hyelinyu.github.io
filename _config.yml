@@ -1,0 +1,11 @@
+title: Lynn Blog
+description: Business grad diving into data — building skills, asking questions, making sense of the noise. 🍵
+author: Hyelin yu
+theme: minimal
+
+# 언어 설정🍵
+lang: ko
+
+# 블로그 주소 설정
+baseurl: "" # github.io 도메인 쓰는 경우는 비워둠
+url: "https://hyelinyu.github.io" # 여기에 본인 주소 입력
