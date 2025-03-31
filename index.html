@@ -12,41 +12,67 @@
       padding: 2rem;
       line-height: 1.6;
     }
-
     header {
       border-bottom: 1px solid #ccc;
       margin-bottom: 2rem;
     }
-
     h1 {
       font-size: 2rem;
     }
-
     nav ul {
       list-style: none;
       padding: 0;
       display: flex;
       gap: 1rem;
     }
-
     nav ul li a {
       text-decoration: none;
       color: #03a;
       font-weight: bold;
     }
-
     h2, h3 {
       color: #03a;
     }
-
-    ul li a {
-      color: #03a;
-    }
-
     footer {
       margin-top: 4rem;
       font-size: 0.9rem;
       color: #777;
+    }
+    .card {
+      display: flex;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 1rem 0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    .card-text {
+      flex: 2;
+      padding: 1rem;
+    }
+    .card-thumb {
+      flex: 1;
+      background-color: #444;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+    }
+    .card h4 {
+      margin: 0.5rem 0;
+    }
+    .card .category {
+      font-size: 0.9rem;
+      color: #0046b8;
+      font-weight: bold;
+    }
+    .card .date {
+      font-size: 0.8rem;
+      color: #666;
+    }
+    a {
+      color: #0046b8;
     }
   </style>
 </head>
@@ -71,11 +97,29 @@
     
     <section>
       <h3>Latest Posts</h3>
-      <ul>
-        <li><a href="#">[2025-03-31] 데이터 분석 프로젝트 시작기</a></li>
-        <li><a href="#">[2025-03-30] 영화 <하얼빈> 감상 후기</a></li>
-        <li><a href="#">[2025-03-29] 책 <데이터 분석 입문> 정리</a></li>
-      </ul>
+
+      <div class="card">
+        <div class="card-text">
+          <span class="category">Data Analysis</span>
+          <h4>Grocery Store Sales Analysis</h4>
+          <p class="date">Mar 1</p>
+          <p>This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+          <a href="posts/data-grocery.html">Continue reading</a>
+        </div>
+        <div class="card-thumb">Thumbnail</div>
+      </div>
+
+      <div class="card">
+        <div class="card-text">
+          <span class="category">Movies</span>
+          <h4>Harbin Review</h4>
+          <p class="date">Mar 3</p>
+          <p>Thoughts on the historical themes and emotional impact of the film Harbin.</p>
+          <a href="posts/movie-harbin.html">Continue reading</a>
+        </div>
+        <div class="card-thumb">Thumbnail</div>
+      </div>
+
     </section>
   </main>
 
