@@ -9,3 +9,10 @@ lang: ko
 # 블로그 주소 설정
 baseurl: "" # github.io 도메인 쓰는 경우는 비워둠
 url: "https://hyelinyu.github.io" # 여기에 본인 주소 입력
+
+# 기본 설정들 
+header_pages:
+  - index.md
+  - data.md
+  - life.md
+  - about.md
