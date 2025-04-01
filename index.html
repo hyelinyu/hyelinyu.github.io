@@ -1,82 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lynn Blog</title>
   <style>
     :root {
-  --bg-color: #ffffff;
-  --text-color: #000000;
-  --nav-bg: #f4f4f4;
-  --nav-link: #03a;
-  --nav-active: #0046b8;
-}
+      --bg-color: #ffffff;
+      --text-color: #000000;
+      --nav-bg: #f4f4f4;
+      --nav-link: #03a;
+      --nav-active: #0046b8;
+    }
 
-[data-theme="dark"] {
-  --bg-color: #111111;
-  --text-color: #f1f1f1;
-  --nav-bg: #1a1a1a;
-  --nav-link: #ccc;
-  --nav-active: #fff;
-}
+    [data-theme="dark"] {
+      --bg-color: #111111;
+      --text-color: #f1f1f1;
+      --nav-bg: #1a1a1a;
+      --nav-link: #ccc;
+      --nav-active: #fff;
+    }
 
-body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-}
-nav ul li a {
-  color: var(--nav-link);
-}
-nav ul li a:hover,
-nav ul li a.active {
-  color: var(--nav-active);
-}
-.theme-toggle {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  background: transparent;
-  border: 1px solid var(--text-color);
-  color: var(--text-color);
-  padding: 0.3rem 0.7rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.85rem;
-}
     body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
       font-family: Georgia, serif;
-      background: #fff;
-      color: #000;
       padding: 2rem;
       line-height: 1.6;
+      transition: background-color 0.3s, color 0.3s;
     }
+
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: transparent;
+      border: 1px solid var(--text-color);
+      color: var(--text-color);
+      padding: 0.3rem 0.7rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      z-index: 999;
+    }
+
     header {
       border-bottom: 1px solid #ccc;
       margin-bottom: 2rem;
     }
+
     h1 {
       font-size: 2rem;
     }
+
     nav ul {
       list-style: none;
       padding: 0;
       display: flex;
       gap: 1rem;
+      background-color: var(--nav-bg);
     }
+
     nav ul li a {
       text-decoration: none;
-      color: #03a;
+      color: var(--nav-link);
       font-weight: bold;
+      transition: color 0.3s;
     }
+
+    nav ul li a:hover,
+    nav ul li a.active {
+      color: var(--nav-active);
+    }
+
     h2, h3 {
-      color: #03a;
+      color: var(--nav-active);
     }
+
     footer {
       margin-top: 4rem;
       font-size: 0.9rem;
-      color: #777;
+      color: var(--text-color);
     }
+
     .card {
       display: flex;
       border: 1px solid #ddd;
@@ -85,10 +91,12 @@ nav ul li a.active {
       margin: 1rem 0;
       box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     }
+
     .card-text {
       flex: 2;
       padding: 1rem;
     }
+
     .card-thumb {
       flex: 1;
       background-color: #444;
@@ -98,30 +106,36 @@ nav ul li a.active {
       align-items: center;
       font-weight: bold;
     }
+
     .card h4 {
       margin: 0.5rem 0;
     }
+
     .card .category {
       font-size: 0.9rem;
-      color: #0046b8;
+      color: var(--nav-active);
       font-weight: bold;
     }
+
     .card .date {
       font-size: 0.8rem;
       color: #666;
     }
+
     a {
-      color: #0046b8;
+      color: var(--nav-active);
     }
   </style>
 </head>
+
 <body>
-  <button class="theme-toggle" onclick="toggleTheme()">🌙 Toggle Theme</button>
+  <button class="theme-toggle" onclick="toggleTheme()">🌙 Appearance</button>
+
   <header>
     <h1>Lynn Blog</h1>
     <nav>
       <ul>
-        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html" class="active">Home</a></li>
         <li><a href="data.html">Data Analysis</a></li>
         <li><a href="life.html">Life</a></li>
         <li><a href="about.html">About</a></li>
@@ -165,16 +179,17 @@ nav ul li a.active {
   <footer>
     <p>&copy; 2025 Hyelin Yu. All rights reserved.</p>
   </footer>
-  <script>
-  function toggleTheme() {
-    const current = document.documentElement.getAttribute("data-theme");
-    const next = current === "dark" ? "light" : "dark";
-    document.documentElement.setAttribute("data-theme", next);
-    localStorage.setItem("theme", next);
-  }
 
-  const saved = localStorage.getItem("theme") || "light";
-  document.documentElement.setAttribute("data-theme", saved);
-</script>
+  <script>
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute("data-theme");
+      const next = current === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+    }
+
+    const saved = localStorage.getItem("theme") || "light";
+    document.documentElement.setAttribute("data-theme", saved);
+  </script>
 </body>
 </html>
