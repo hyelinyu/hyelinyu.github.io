@@ -5,6 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lynn Blog</title>
   <style>
+    :root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --nav-bg: #f4f4f4;
+  --nav-link: #03a;
+  --nav-active: #0046b8;
+}
+
+[data-theme="dark"] {
+  --bg-color: #111111;
+  --text-color: #f1f1f1;
+  --nav-bg: #1a1a1a;
+  --nav-link: #ccc;
+  --nav-active: #fff;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+nav ul li a {
+  color: var(--nav-link);
+}
+nav ul li a:hover,
+nav ul li a.active {
+  color: var(--nav-active);
+}
+.theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: 1px solid var(--text-color);
+  color: var(--text-color);
+  padding: 0.3rem 0.7rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
     body {
       font-family: Georgia, serif;
       background: #fff;
@@ -77,6 +116,7 @@
   </style>
 </head>
 <body>
+  <button class="theme-toggle" onclick="toggleTheme()">🌙 Toggle Theme</button>
   <header>
     <h1>Lynn Blog</h1>
     <nav>
@@ -125,5 +165,16 @@
   <footer>
     <p>&copy; 2025 Hyelin Yu. All rights reserved.</p>
   </footer>
+  <script>
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute("data-theme");
+    const next = current === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    localStorage.setItem("theme", next);
+  }
+
+  const saved = localStorage.getItem("theme") || "light";
+  document.documentElement.setAttribute("data-theme", saved);
+</script>
 </body>
 </html>
