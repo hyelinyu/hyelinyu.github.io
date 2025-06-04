@@ -1,0 +1,23 @@
+<header class="p-3">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center flex-wrap mb-2">
+        <!-- 로고 2종 -->
+        <img src="{{ '/assets/image_icon12.png' | relative_url }}" class="site-logo light-mode-img" alt="logo-light">
+        <img src="{{ '/assets/image_darkmode.png' | relative_url }}" class="site-logo dark-mode-img"  alt="logo-dark">
+        <h1 class="fw-bold lynexa-title m-0">{{ site.title }}</h1>
+  
+        <!-- 오른쪽: 테마 드롭다운 + LinkedIn -->
+        … (지금 index.html 의 드롭다운·아이콘 코드 그대로) …
+      </div>
+  
+      <!-- 네비게이션 -->
+      <nav class="border-top pt-2">
+        <ul class="nav">
+          <li class="nav-item"><a href="{{ '/' | relative_url }}"          class="nav-link{% if page.url == '/' %} active{% endif %}">All</a></li>
+          <li class="nav-item"><a href="{{ '/projects/' | relative_url }}" class="nav-link">Projects</a></li>
+          <li class="nav-item"><a href="{{ '/thoughts/' | relative_url }}" class="nav-link">Thoughts</a></li>
+          <li class="nav-item"><a href="{{ '/about/'    | relative_url }}" class="nav-link">About Me</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>

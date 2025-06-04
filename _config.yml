@@ -1,0 +1,4 @@
+title: "Beautiful Oops"
+timezone: Asia/Seoul
+markdown: kramdown
+permalink: /:year/:month/:day/:title/

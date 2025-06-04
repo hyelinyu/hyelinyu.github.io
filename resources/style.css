@@ -21,7 +21,127 @@ main {
   min-height: calc(100vh - 150px); /* 헤더 + 푸터 높이를 제외한 최소 높이 설정 */
 }
 
+/* 🌙 다크모드 전체 적용 */
+/* 기본 스타일 재정의 */
+.theme-indicator {
+  font-size: 0.9rem;
+  color: #916161 !important; /* 원하시는 색상 */
+}
 
+/* 선택 시 진하게 (예: 다크그레이) */
+body.dark-mode .theme-indicator {
+  color: #ccc;
+}
+/* 공통 화살표 색 */
+.dropdown-toggle::after {
+  border-top-color: #999 !important;
+}
+
+/* 다크모드 전용 화살표 색 */
+body.dark-mode .dropdown-toggle::after {
+  border-top-color: #ccc !important;
+}
+body.dark-mode .dropdown-menu {
+  background-color: #1e1e1e;
+  color: #e4e4e4;
+  border: 1px solid #333;
+}
+body.dark-mode .dropdown-item {
+  color: #ddd;
+}
+
+body.dark-mode .dropdown-item:hover {
+  background-color: #2c2c2c;
+  color: #fff;
+}
+body.dark-mode {
+  background-color: #121212;
+  color: #e4e4e4;
+}
+/* 헤더 배경 */
+body.dark-mode header {
+  background-color: #1a1a1a !important;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+/* 타이틀 */
+body.dark-mode .lynexa-title {
+  color: #ffffff !important;
+}
+body.light-mode .lynexa-title {
+  color: #1f0f41 !important;
+}
+
+/* 네비게이션 */
+body .nav-link {
+  font-weight: 500;
+  color: #333;
+}
+body.dark-mode .nav-link {
+  color: #bbb !important;
+}
+body.dark-mode .nav-link:hover {
+  color: #ffffff !important;
+}
+/* 메뉴 선택 색상 */
+body.dark-mode .nav-link.active {
+  color: #8ab4f8 !important;  /* 밝은 파란색 대신 구글 다크모드 계열 */
+  border-bottom: 2px solid #8ab4f8;
+}
+
+/* 강조 색상 */
+body.dark-mode .text-primary-emphasis {
+  color: #9ab !important;  /* 블루그레이톤으로 조화롭게 */
+}
+
+/* featured banner 텍스트 */
+body.dark-mode .text-body-emphasis {
+  color: #f1f1f1 !important;
+}
+
+/* 카드 내 텍스트 */
+body.dark-mode .text-body-secondary,
+body.dark-mode .card-text,
+body.dark-mode .card-title,
+body.dark-mode .mb-0 {
+  color: #ccc !important;
+}
+
+/* 카드 배경 */
+body.dark-mode .bg-body-secondary {
+  background-color: #1e1e1e !important;
+}
+
+.theme-indicator {
+  font-size: 0.8rem;
+  color: #2c3748;
+}
+.lynexa-title {
+  font-size: 1.75rem;
+}
+
+nav {
+  padding-top: 0.25rem;   /* pt-1과 동일 */
+  padding-bottom: 0.25rem;/* 필요하다면 동일하게 줄여줍니다 */
+}
+
+/* 2) nav 링크(.nav-link)의 위아래 padding 줄이기 */
+.nav-link {
+  padding-top: 0.25rem;   /* 기본은 0.5rem인데, 절반으로 줄임 */
+  padding-bottom: 0.25rem;
+}
+
+.nav-link.active {
+  font-weight: bold;
+  color: #476188 !important;
+  border-bottom: 2px solid #476188;
+  padding-bottom: 0.122rem;      /* 활성 상태 밑줄이 너무 아래 있으면 위로 살짝 올리기 위해 */
+  border-bottom-width: 2px; 
+}
+
+.nav-link:hover {
+  color: #476188;
+}
 
 .blog-post {
   text-align: left; /* 텍스트는 좌측 정렬 유지 */
@@ -38,27 +158,12 @@ header {
   padding: 15px 0;
 }
 
-.search-icon {
-  width: 24px;
-  height: 24px;
-  color: #333; /* 색상 변경 가능 */
-  margin-right: 40px; /* 오른쪽 여백 추가 */
-}
-
-.custom-search-btn {
-  background-color: #00308F !important; /* 원하는 색상 (초록) */
-  color: white;
-  border: none;
-}
-.custom-search-btn:hover {
-  background-color: #00308F !important; /* 마우스 올릴 때 색상 */
-}
 
 
 .lynexa-title {
   font-size: 24px; /* 타이틀 크기 */
   font-weight: bold;
-  color: #1f0f41 !important;
+  color: #452981 !important;
   margin: 0; /* 기본 마진 제거 */
 }
 
@@ -78,43 +183,7 @@ form {
   justify-content: flex-end; /* 검색창 오른쪽 정렬 */
 }
 
-.search-form {
-  display: flex;
-  align-items: center;
-  max-width: 250px;
-  width: 300%;
-  margin-top: 15px;
-}
 
-.search-form input {
-  flex-grow: 1;
-  min-width: 150px;
-}
-
-.search-btn {
-  white-space: nowrap;
-  padding: 5px 10px;
-  font-size: 14px;
-}
-
-.icon-link {
-  color: #00308F; /* 기본 링크 색상 */
-  text-decoration: none; /* 밑줄 제거 */
-  font-weight: bold;
-}
-
-.icon-link:hover {
-  color: #69abcad1; /* 마우스를 올렸을 때 색상 */
-  text-decoration: underline; /* 밑줄 추가 */
-}
-
-.icon-link svg {
-  fill: #00308F; /* 아이콘 색상 변경 */
-}
-
-.icon-link:hover svg {
-  fill: #69abcad1; /* 마우스를 올렸을 때 아이콘 색상 변경 */
-}
 
 
 .text-body-secondary svg {
@@ -170,3 +239,115 @@ footer {
 
 
 
+.custom-card {
+  background-color: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 24px;
+  transition: transform 0.2s ease;
+}
+
+.custom-card:hover {
+  transform: translateY(-4px);
+}
+
+.card-thumbnail {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.card-info-box {
+  background-color: #111;
+  color: #fff;
+  padding: 16px;
+}
+
+.category {
+  display: inline-block;
+  color: #f15b5b;
+  font-weight: bold;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+}
+
+.post-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 8px;
+  color: #fff;
+}
+
+.meta-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: #ccc;
+}
+
+
+/* 기본 스타일 */
+.header-icon {
+  font-size: 1.5rem;
+  transition: color 0.2s ease;
+}
+
+/* 🎨 라이트 모드 */
+body.light-mode .header-icon {
+  color: #555;
+}
+
+body.light-mode .header-icon:hover {
+  color: #000;
+}
+
+/* 🌙 다크 모드 */
+body.dark-mode .header-icon {
+  color: #ccc;
+}
+
+body.dark-mode .header-icon:hover {
+  color: #fff;
+}
+
+/* 드롭다운 버튼 내 파란 밑줄 제거 */
+.dropdown-toggle:focus,
+.dropdown-toggle:active,
+.dropdown-toggle:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+  color: inherit !important;
+}
+
+.btn-link {
+  text-decoration: none;
+}
+
+.btn-link:hover {
+  text-decoration: none;
+}
+
+/* 로고 이미지 스타일 */
+.site-logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 20%;   /* 원형 이미지 */
+  object-fit: cover;
+}
+
+/* 기본은 모두 숨김 */
+.site-logo {
+  display: none;
+}
+
+/* 라이트 모드에서만 표시 */
+body.light-mode .light-mode-img {
+  display: inline;
+}
+
+/* 다크 모드에서만 표시 */
+body.dark-mode .dark-mode-img {
+  display: inline;
+}
