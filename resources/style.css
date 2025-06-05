@@ -401,3 +401,28 @@ body.light-mode footer {
   background-color: #f8f9fa;
   color: #444;
 }
+
+/* 다크모드용 배경 처리 */
+body.dark-mode main,
+body.dark-mode .container,
+body.dark-mode .blog-post,
+body.dark-mode .row,
+body.dark-mode .latest-posts-scroll {
+  background-color: #141414 !important;
+  color: #ddd;
+}
+
+/* 여백 제거 */
+body.dark-mode .container,
+body.dark-mode main,
+body.dark-mode .blog-post {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* footer 위에 공백 생기는 요소 처리 */
+body.dark-mode .footer-separator,
+body.dark-mode .space-before-footer {
+  display: none !important;
+  height: 0 !important;
+}
