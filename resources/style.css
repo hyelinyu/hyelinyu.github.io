@@ -377,3 +377,27 @@ body.light-mode footer svg {
 body.dark-mode footer svg {
   fill: #cccccc;
 }
+
+body.light-mode .footer-brand,
+body.light-mode .social-linkedin svg,
+body.light-mode .social-github svg {
+  color: #444;
+  fill: #444;
+}
+
+body.dark-mode .footer-brand,
+body.dark-mode .social-linkedin svg,
+body.dark-mode .social-github svg {
+  color: #ccc;
+  fill: #ccc;
+}
+
+body.dark-mode footer {
+  background-color: #141414;
+  color: #ccc;
+}
+
+body.light-mode footer {
+  background-color: #f8f9fa;
+  color: #444;
+}
