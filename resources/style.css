@@ -403,7 +403,9 @@ body.light-mode footer {
 }
 
 /* 다크모드용 배경 처리 */
-body.dark-mode main,
+body.dark-mode main {
+  background-color: #141414 !important;
+  color: #ddd;
 body.dark-mode .container,
 body.dark-mode .blog-post,
 body.dark-mode .row,
@@ -425,4 +427,21 @@ body.dark-mode .footer-separator,
 body.dark-mode .space-before-footer {
   display: none !important;
   height: 0 !important;
+}
+
+body.dark-mode .container {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+body.dark-mode .container,
+body.dark-mode .row,
+body.dark-mode .card,
+body.dark-mode .col-md-6 {
+  background-color: #141414 !important;
+  color: #ccc !important;
+}
+
+body.dark-mode a {
+  color: #ccc !important;
 }
