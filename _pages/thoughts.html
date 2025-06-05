@@ -1,0 +1,16 @@
+---
+layout: default         
+title: Thoughts           
+permalink: /thoughts/     
+
+<div class="container py-4">
+  <h2 class="mb-4">Thoughts</h2>
+
+  {%- comment -%}
+    categories: [thoughts] 로 지정된 글만 저장
+  {%- endcomment -%}
+
+  {% for post in site.categories.thoughts %}
+    {% include post-card.html post=post %}
+  {% endfor %}
+</div>

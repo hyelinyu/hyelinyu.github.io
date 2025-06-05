@@ -16,10 +16,13 @@
   <!-- Header 영역 -->
   <header class="p-3">
     <div class="container">
+      
       <div class="d-flex justify-content-between align-items-center flex-wrap mb-2">
+
+        <a href="{{ '/' | relative_url }}" class="d-flex align-items-center gap-2 text-decoration-none">
         <img src="{{ '/assets/image_icon12.png' | relative_url }}" class="site-logo light-mode-img" />
         <img src="{{ '/assets/image_darkmode.png' | relative_url }}" class="site-logo dark-mode-img" />
-        <h1 class="fw-bold lynexa-title m-0">Beautiful Oops</h1>
+        <h1 class="fw-bold lynexa-title m-0">Beautiful Oops</h1></a>
 
         <div class="d-flex align-items-center flex-nowrap" style="gap: 10px;">
           <div class="dropdown">
@@ -59,8 +62,8 @@
       <nav class="border-top pt-2">
         <ul class="nav">
           <li class="nav-item"><a href="/" class="nav-link text-dark active">All</a></li>
-          <li class="nav-item"><a href="#" class="nav-link text-dark">Projects</a></li>
-          <li class="nav-item"><a href="#" class="nav-link text-dark">Thoughts</a></li>
+          <li class="nav-item"><a href="{{ '/projects/' | relative_url }}" class="nav-link text-dark">Projects</a></li>
+          <li class="nav-item"><a href="{{ '/thoughts/' | relative_url }}" class="nav-link text-dark">Thoughts</a></li>
           <li class="nav-item"><a href="#" class="nav-link text-dark">About Me</a></li>
         </ul>
       </nav>

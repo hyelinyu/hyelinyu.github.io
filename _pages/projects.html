@@ -1,0 +1,18 @@
+---
+layout: default          # 헤더·푸터가 있는 기본 레이아웃을 쓰겠다
+title: Projects
+permalink: /projects/    # 이 파일의 실제 URL 경로를 /projects/ 로 고정
+---
+
+<div class="container py-4">
+  <h2 class="mb-4">Projects</h2>
+
+  {%- comment -%}
+    site.categories.projects 안에는
+    categories: [projects] 가 붙은 포스트만 자동으로 들어 있어요.
+  {%- endcomment -%}
+
+  {% for post in site.categories.projects %}
+    {% include post-card.html post=post %}
+  {% endfor %}
+</div>
