@@ -462,7 +462,7 @@ body.dark-mode footer a:hover {
 }
 
 body.dark-mode main.container {
-  margin-top: 0 !important;     /* my-5 덮어쓰기 */
+       /* my-5 덮어쓰기 */
   margin-bottom: 0 !important;
 }
 
@@ -472,3 +472,5 @@ body.dark-mode main.container {
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
+
+.brand-block > .stretched-link { z-index: 1; }
