@@ -1,10 +1,14 @@
 <div class="col-md-6">
-    <div class="card mb-4 shadow-sm">
-      <div class="card-body">
-        <h5 class="card-title">{{ post.title }}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{ post.date | date: "%Y-%m-%d" }}</h6>
-        <p class="card-text">{{ post.excerpt | strip_html | truncate: 100 }}</p>
-        <a href="{{ post.url }}" class="btn btn-sm btn-outline-primary">Read More</a>
-      </div>
+  <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+    <div class="col p-4 d-flex flex-column position-static">
+      <strong class="d-inline-block mb-2 text-primary-emphasis">Data Analysis</strong>
+      <h3 class="mb-0">{{ post.title }}</h3>
+      <div class="mb-1 text-body-secondary">{{ post.date | date: "%b %d, %Y" }}</div>
+      <p class="card-text mb-auto">{{ post.excerpt }}</p>
+      <a href="{{ post.url | relative_url }}" class="stretched-link"></a>
+    </div>
+    <div class="col-auto d-none d-lg-block">
+      <svg class="bd-placeholder-img" width="200" height="250"></svg>
     </div>
   </div>
+</div>

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ page.title }}</title>
 
-  <!-- CSS 연결 -->
+  <!-- 스타일 및 아이콘 로드 -->
   <link rel="stylesheet" href="{{ '/resources/style.css' | relative_url }}">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -13,7 +13,7 @@
 
 <body>
 
-  <!-- Header 영역 -->
+  <!-- Header (index.html 기반) -->
   <header class="p-3">
     <div class="container">
       <div class="d-flex justify-content-between align-items-center flex-wrap mb-2">
@@ -40,7 +40,7 @@
 
       <nav class="border-top pt-2">
         <ul class="nav">
-          <li class="nav-item"><a href="/" class="nav-link text-dark active">All</a></li>
+          <li class="nav-item"><a href="{{ '/' | relative_url }}" class="nav-link text-dark">All</a></li>
           <li class="nav-item"><a href="#" class="nav-link text-dark">Projects</a></li>
           <li class="nav-item"><a href="#" class="nav-link text-dark">Thoughts</a></li>
           <li class="nav-item"><a href="#" class="nav-link text-dark">About Me</a></li>
@@ -49,9 +49,13 @@
     </div>
   </header>
 
-  <!-- 본문 영역 -->
-  <main>
-    {{ content }}
+  <!-- 본문: 포스트 내용 -->
+  <main class="container my-5">
+    <article class="blog-post">
+      <h1 class="fw-bold">{{ page.title }}</h1>
+      <p class="text-muted">{{ page.date | date: "%B %d, %Y" }}</p>
+      {{ content }}
+    </article>
   </main>
 
   <!-- Footer -->
@@ -65,55 +69,34 @@
     </ul>
   </footer>
 
-  <!-- Script -->
+  <!-- 다크모드 스크립트 -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const root = document.documentElement;
-      const themeIcon = document.getElementById('currentThemeIcon');
-      const buttons = document.querySelectorAll('[data-theme]');
-      const indicators = document.querySelectorAll('.theme-indicator');
-      const savedTheme = localStorage.getItem('theme') || 'system';
-  
-      applyTheme(savedTheme);
-  
-      buttons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const selected = btn.getAttribute('data-theme');
-          localStorage.setItem('theme', selected);
-          applyTheme(selected);
-        });
-      });
-  
-      function applyTheme(mode) {
-        document.body.classList.remove('dark-mode', 'light-mode');
-        indicators.forEach(i => i.textContent = '');
-  
-        if (mode === 'dark') {
-          document.body.classList.add('dark-mode');
-          themeIcon.className = 'bi bi-moon-fill header-icon';
-        } else if (mode === 'light') {
-          document.body.classList.add('light-mode');
-          themeIcon.className = 'bi bi-brightness-high-fill header-icon';
-        } else {
-          const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          document.body.classList.add(systemPrefersDark ? 'dark-mode' : 'light-mode');
-          themeIcon.className = systemPrefersDark
-            ? 'bi bi-moon-fill header-icon'
-            : 'bi bi-brightness-high-fill header-icon';
-        }
-  
-        const selectedIndicator = document.querySelector(`.theme-indicator[data-theme="${mode}"]`);
-        if (selectedIndicator) {
-          selectedIndicator.textContent = '●';
-        }
+    const themeIcon = document.getElementById('currentThemeIcon');
+    const buttons = document.querySelectorAll('[data-theme]');
+    const savedTheme = localStorage.getItem('theme') || 'system';
+
+    function applyTheme(mode) {
+      document.body.classList.remove('dark-mode', 'light-mode');
+      if (mode === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeIcon.className = 'bi bi-moon-fill';
+      } else if (mode === 'light') {
+        document.body.classList.add('light-mode');
+        themeIcon.className = 'bi bi-brightness-high-fill';
+      } else {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.body.classList.add(prefersDark ? 'dark-mode' : 'light-mode');
+        themeIcon.className = prefersDark ? 'bi bi-moon-fill' : 'bi bi-brightness-high-fill';
       }
-  
-      // 시스템 설정이 바뀔 때 자동 적용
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-        if (localStorage.getItem('theme') === 'system') {
-          applyTheme('system');
-        }
+    }
+
+    applyTheme(savedTheme);
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const selected = btn.getAttribute('data-theme');
+        localStorage.setItem('theme', selected);
+        applyTheme(selected);
       });
     });
   </script>
