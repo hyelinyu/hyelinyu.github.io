@@ -1,244 +1,185 @@
-.navbar navbar-expand-lg navbar-dark bg-dark {
-    background: linear-gradient(300deg, #00bfff, #ff4c68, #ef8172);
-    background-size: 180% 180%;
-    animation: gradient-animation 18s ease infinite;
-  }
+/* =========================
+   GLOBAL LAYOUT & NAVBAR
+   ========================= */
 
+/* 1. Navbar gradient (selector fixed) */
+.navbar.navbar-expand-lg.navbar-dark.bg-dark {
+  background: linear-gradient(300deg, #00bfff, #ff4c68, #ef8172);
+  background-size: 180% 180%;
+  animation: gradient-animation 18s ease infinite;
+}
 
-html, body {
+/* 2. Base layout */
+html,
+body {
   background-color: white;
   height: 100%;
   margin: 0;
   display: flex;
   flex-direction: column;
-  padding-top: 80px;
+  padding-top: 80px; /* compensate for fixed header */
 }
 
 main {
   flex-grow: 1 !important;
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - 150px); /* 헤더 + 푸터 높이를 제외한 최소 높이 설정 */
+  min-height: calc(100vh - 150px); /* header + footer */
 }
 
-/* 🌙 다크모드 전체 적용 */
-/* 기본 스타일 재정의 */
-.theme-indicator {
-  font-size: 0.9rem;
-  color: #916161 !important; /* 원하시는 색상 */
+/* 3. Header (fixed) */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: white; /* light‑mode */
+  z-index: 1000;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 15px 0;
 }
-
-/* 선택 시 진하게 (예: 다크그레이) */
-body.dark-mode .theme-indicator {
-  color: #ccc;
-}
-/* 공통 화살표 색 */
-.dropdown-toggle::after {
-  border-top-color: #999 !important;
-}
-
-/* 다크모드 전용 화살표 색 */
-body.dark-mode .dropdown-toggle::after {
-  border-top-color: #ccc !important;
-}
-body.dark-mode .dropdown-menu {
-  background-color: #1e1e1e;
-  color: #e4e4e4;
-  border: 1px solid #333;
-}
-body.dark-mode .dropdown-item {
-  color: #ddd;
-}
-
-body.dark-mode .dropdown-item:hover {
-  background-color: #2c2c2c;
-  color: #fff;
-}
-body.dark-mode {
-  background-color: #121212;
-  color: #e4e4e4;
-}
-/* 헤더 배경 */
 body.dark-mode header {
   background-color: #1a1a1a !important;
   border-bottom: 1px solid #2a2a2a;
 }
 
-/* 타이틀 */
-body.dark-mode .lynexa-title {
-  color: #ffffff !important;
-}
-body.light-mode .lynexa-title {
-  color: #1f0f41 !important;
-}
-
-/* 네비게이션 */
-body .nav-link {
-  font-weight: 500;
-  color: #333;
-}
-body.dark-mode .nav-link {
-  color: #bbb !important;
-}
-body.dark-mode .nav-link:hover {
-  color: #ffffff !important;
-}
-/* 메뉴 선택 색상 */
-body.dark-mode .nav-link.active {
-  color: #8ab4f8 !important;  /* 밝은 파란색 대신 구글 다크모드 계열 */
-  border-bottom: 2px solid #8ab4f8;
-}
-
-/* 강조 색상 */
-body.dark-mode .text-primary-emphasis {
-  color: #9ab !important;  /* 블루그레이톤으로 조화롭게 */
-}
-
-/* featured banner 텍스트 */
-body.dark-mode .text-body-emphasis {
-  color: #f1f1f1 !important;
-}
-
-/* 카드 내 텍스트 */
-body.dark-mode .text-body-secondary,
-body.dark-mode .card-text,
-body.dark-mode .card-title,
-body.dark-mode .mb-0 {
-  color: #ccc !important;
-}
-
-/* 카드 배경 */
-body.dark-mode .bg-body-secondary {
-  background-color: #1e1e1e !important;
-}
-
-.theme-indicator {
-  font-size: 0.8rem;
-  color: #2c3748;
-}
-.lynexa-title {
-  font-size: 1.75rem;
-}
-
+/* 4. Nav spacing & active state */
 nav {
-  padding-top: 0.25rem;   /* pt-1과 동일 */
-  padding-bottom: 0.25rem;/* 필요하다면 동일하게 줄여줍니다 */
-}
-
-/* 2) nav 링크(.nav-link)의 위아래 padding 줄이기 */
-.nav-link {
-  padding-top: 0.25rem;   /* 기본은 0.5rem인데, 절반으로 줄임 */
+  padding-top: 0.25rem;
   padding-bottom: 0.25rem;
 }
 
-.nav-link.active {
-  font-weight: bold;
-  color: #476188 !important;
-  border-bottom: 2px solid #476188;
-  padding-bottom: 0.122rem;      /* 활성 상태 밑줄이 너무 아래 있으면 위로 살짝 올리기 위해 */
-  border-bottom-width: 2px; 
+.nav-link {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  font-weight: 500;
 }
 
 .nav-link:hover {
   color: #476188;
 }
 
-.blog-post {
-  text-align: left; /* 텍스트는 좌측 정렬 유지 */
-}
-
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: white; /* 배경색 지정 (투명해지는 문제 방지) */
-  z-index: 1000; /* 다른 요소 위에 배치 */
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 추가 */
-  padding: 15px 0;
-}
-
-
-
-.lynexa-title {
-  font-size: 24px; /* 타이틀 크기 */
+.nav-link.active {
   font-weight: bold;
-  color: #452981 !important;
-  margin: 0; /* 기본 마진 제거 */
+  color: #476188;
+  border-bottom: 2px solid #476188;
+  padding-bottom: 0.122rem;
 }
 
-.nav {
-  display: flex;
-  justify-content: flex-start; /* 네비게이션 왼쪽 정렬 */
-  list-style: none;
-  padding: 0;
+/* =========================
+   DARK‑MODE – CONSOLIDATED
+   ========================= */
+
+/* 5. Core background/foreground */
+html.dark-mode,
+body.dark-mode,
+body.dark-mode main,
+body.dark-mode .container,
+body.dark-mode .row,
+body.dark-mode .col,
+body.dark-mode .blog-post,
+body.dark-mode .latest-posts-scroll,
+body.dark-mode .card,
+body.dark-mode footer {
+  background-color: #141414 !important;
+  color: #ddd !important;
 }
 
-.nav li {
-  margin-right: 10px; /* 메뉴 간격 */
+/* 6. Links & nav */
+body.dark-mode a,
+body.dark-mode .nav-link,
+body.dark-mode .dropdown-item {
+  color: #ccc !important;
 }
 
-form {
-  display: flex;
-  justify-content: flex-end; /* 검색창 오른쪽 정렬 */
+body.dark-mode .nav-link:hover,
+body.dark-mode .dropdown-item:hover {
+  color: #fff !important;
 }
 
-
-
-
-.text-body-secondary svg {
-  transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
-  width: 24px;
-  height: 24px;
-  color: #555; /* 기본 색상 */
+body.dark-mode .nav-link.active {
+  color: #8ab4f8 !important;
+  border-bottom: 2px solid #8ab4f8;
 }
 
-.text-body-secondary:hover svg {
-  color: #0073b1; /* LinkedIn: 파란색 */
-  transform: scale(1.2); /* 마우스 올리면 약간 확대 */
+/* 7. Dropdown tweaks */
+.dropdown-toggle::after {
+  border-top-color: #999 !important;
+}
+body.dark-mode .dropdown-toggle::after {
+  border-top-color: #ccc !important;
+}
+body.dark-mode .dropdown-menu {
+  background-color: #1e1e1e;
+  border: 1px solid #333;
 }
 
+/* 8. Footer & icons */
 footer {
   width: 100%;
-  background-color: #f8f9fa;
   padding: 20px;
-  text-align: center !important;
-  position: relative !important;
-  margin-top: auto !important; /* 위쪽 공간 자동 확보 */
+  text-align: center;
+  position: relative;
+  margin-top: auto;
+  background-color: #f8f9fa;
+  color: #555;
+}
+body.dark-mode footer {
+  background-color: #141414;
+  color: #ccc;
 }
 
-.nav.list-unstyled {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  align-items: center;
+body.dark-mode svg {
+  fill: #ccc !important;
 }
 
-.nav.list-unstyled li {
-  list-style: none; /* 동그라미(•) 제거 */
+/* 9. Theme indicator */
+.theme-indicator {
+  font-size: 0.8rem;
+  color: #2c3748;
+}
+body.dark-mode .theme-indicator {
+  color: #ccc;
 }
 
-.nav.list-unstyled a svg {
-  width: 32px;
-  height: 32px;
-  fill: #6c757d; /* 기본 색상 */
-  transition: fill 0.3s ease-in-out, transform 0.2s ease-in-out;
+/* =========================
+   COMPONENTS & MISC
+   ========================= */
+
+/* Site logo visibility */
+.site-logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 20%;
+  object-fit: cover;
+  display: none;
+}
+body.light-mode .light-mode-img {
+  display: inline;
+}
+body.dark-mode .dark-mode-img {
+  display: inline;
 }
 
-/* LinkedIn 아이콘 Hover 효과 (파란색) */
-.social-linkedin:hover svg {
-  fill: #0073b1 !important; /* LinkedIn 공식 색상 */
-  transform: scale(2);
+/* Header icons */
+.header-icon {
+  font-size: 1.5rem;
+  transition: color 0.2s ease;
+}
+body.light-mode .header-icon {
+  color: #555;
+}
+body.light-mode .header-icon:hover {
+  color: #000;
+}
+body.dark-mode .header-icon {
+  color: #ccc;
+}
+body.dark-mode .header-icon:hover {
+  color: #fff;
 }
 
-/* GitHub 아이콘 Hover 효과 (검정색) */
-.social-github:hover svg {
-  fill: #000000 !important; /* GitHub 공식 색상 */
-  transform: scale(2);
-}
-
-
-
+/* Card component */
 .custom-card {
   background-color: #000;
   border-radius: 12px;
@@ -247,31 +188,20 @@ footer {
   margin-bottom: 24px;
   transition: transform 0.2s ease;
 }
-
 .custom-card:hover {
   transform: translateY(-4px);
 }
-
-.card-thumbnail {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
 .card-info-box {
   background-color: #111;
   color: #fff;
   padding: 16px;
 }
-
 .category {
-  display: inline-block;
   color: #f15b5b;
   font-weight: bold;
   margin-bottom: 6px;
   font-size: 0.9rem;
 }
-
 .post-title {
   font-size: 1.1rem;
   font-weight: 600;
@@ -279,169 +209,19 @@ footer {
   color: #fff;
 }
 
-.meta-info {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.85rem;
-  color: #ccc;
+/* Social icon hover effects */
+.social-linkedin:hover svg {
+  fill: #0073b1 !important;
+  transform: scale(2);
+}
+.social-github:hover svg {
+  fill: #000 !important;
+  transform: scale(2);
 }
 
-
-/* 기본 스타일 */
-.header-icon {
-  font-size: 1.5rem;
-  transition: color 0.2s ease;
-}
-
-/* 🎨 라이트 모드 */
-body.light-mode .header-icon {
-  color: #555;
-}
-
-body.light-mode .header-icon:hover {
-  color: #000;
-}
-
-/* 🌙 다크 모드 */
-body.dark-mode .header-icon {
-  color: #ccc;
-}
-
-body.dark-mode .header-icon:hover {
-  color: #fff;
-}
-
-/* 드롭다운 버튼 내 파란 밑줄 제거 */
-.dropdown-toggle:focus,
-.dropdown-toggle:active,
-.dropdown-toggle:focus-visible {
-  outline: none !important;
-  box-shadow: none !important;
-  text-decoration: none !important;
-  color: inherit !important;
-}
-
-.btn-link {
-  text-decoration: none;
-}
-
-.btn-link:hover {
-  text-decoration: none;
-}
-
-/* 로고 이미지 스타일 */
-.site-logo {
-  width: 50px;
-  height: 50px;
-  border-radius: 20%;   /* 원형 이미지 */
-  object-fit: cover;
-}
-
-/* 기본은 모두 숨김 */
-.site-logo {
-  display: none;
-}
-
-/* 라이트 모드에서만 표시 */
-body.light-mode .light-mode-img {
-  display: inline;
-}
-
-/* 다크 모드에서만 표시 */
-body.dark-mode .dark-mode-img {
-  display: inline;
-}
-
-/* 푸터 전체 색상 통제 */
-body.light-mode footer {
-  background-color: #f8f9fa;
-  color: #555555;
-}
-body.dark-mode footer {
-  background-color: #141414;
-  color: #cccccc;
-}
-
-/* 푸터 링크 색상 통제 */
-body.light-mode footer a {
-  color: #555555;
-}
-body.dark-mode footer a {
-  color: #cccccc;
-}
-
-/* 아이콘 (svg)도 색상 고정 */
-body.light-mode footer svg {
-  fill: #555555;
-}
-body.dark-mode footer svg {
-  fill: #cccccc;
-}
-
-body.light-mode .footer-brand,
-body.light-mode .social-linkedin svg,
-body.light-mode .social-github svg {
-  color: #444;
-  fill: #444;
-}
-
-body.dark-mode .footer-brand,
-body.dark-mode .social-linkedin svg,
-body.dark-mode .social-github svg {
-  color: #ccc;
-  fill: #ccc;
-}
-
-body.dark-mode footer {
-  background-color: #141414;
-  color: #ccc;
-}
-
-body.light-mode footer {
-  background-color: #f8f9fa;
-  color: #444;
-}
-
-/* 다크모드용 배경 처리 */
-body.dark-mode main {
-  background-color: #141414 !important;
-  color: #ddd;
-body.dark-mode .container,
-body.dark-mode .blog-post,
-body.dark-mode .row,
-body.dark-mode .latest-posts-scroll {
-  background-color: #141414 !important;
-  color: #ddd;
-}
-
-/* 여백 제거 */
-body.dark-mode .container,
-body.dark-mode main,
-body.dark-mode .blog-post {
-  margin-bottom: 0 !important;
-  padding-bottom: 0 !important;
-}
-
-/* footer 위에 공백 생기는 요소 처리 */
-body.dark-mode .footer-separator,
-body.dark-mode .space-before-footer {
+/* Remove empty spacer blocks */
+.footer-separator,
+.space-before-footer {
   display: none !important;
   height: 0 !important;
-}
-
-body.dark-mode .container {
-  padding-bottom: 0 !important;
-  margin-bottom: 0 !important;
-}
-
-body.dark-mode .container,
-body.dark-mode .row,
-body.dark-mode .card,
-body.dark-mode .col-md-6 {
-  background-color: #141414 !important;
-  color: #ccc !important;
-}
-
-body.dark-mode a {
-  color: #ccc !important;
 }
