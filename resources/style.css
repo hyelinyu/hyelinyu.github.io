@@ -351,3 +351,29 @@ body.light-mode .light-mode-img {
 body.dark-mode .dark-mode-img {
   display: inline;
 }
+
+/* 푸터 전체 색상 통제 */
+body.light-mode footer {
+  background-color: #f8f9fa;
+  color: #555555;
+}
+body.dark-mode footer {
+  background-color: #141414;
+  color: #cccccc;
+}
+
+/* 푸터 링크 색상 통제 */
+body.light-mode footer a {
+  color: #555555;
+}
+body.dark-mode footer a {
+  color: #cccccc;
+}
+
+/* 아이콘 (svg)도 색상 고정 */
+body.light-mode footer svg {
+  fill: #555555;
+}
+body.dark-mode footer svg {
+  fill: #cccccc;
+}
