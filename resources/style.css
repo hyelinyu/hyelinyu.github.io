@@ -472,24 +472,16 @@ body.dark-mode main.container {
   margin-bottom: 0 !important;
 }
 
-/* ---------- Main full-width in dark mode ---------- */
-/* 본문은 너무 꽉 차지 않도록 Bootstrap 기본 container 유지 */
-body.dark-mode main.container {
-  max-width: 960px !important;
-  margin: 80px auto 0 auto !important; /* 헤더 피하면서 가운데 정렬 */
-  padding-left: 1rem !important;
-  padding-right: 1rem !important;
-  background-color: #141414 !important;
-  color: #ddd !important;
-}
 
-/* 다크모드: main에 my-5 같은 여백 제거 + 배경 색 덮어쓰기 */
-body.dark-mode main.container,
-body.dark-mode main.container.my-5 {
-  background-color: #141414 !important;
-  color: #ddd !important;
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
-  padding-top: 2rem !important;
-  padding-bottom: 2rem !important;
+
+/* ✅ 다크모드에서 라이트모드와 유사한 메인 영역 만들기 */
+body.dark-mode main.container {
+  background-color: #ffffff !important;
+  color: #333 !important;
+
+  max-width: 960px;
+  margin: 80px auto;
+  padding: 2rem 1rem;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05); /* subtle한 그림자 */
+  border-radius: 8px;  /* 부드러운 모서리 */
 }
