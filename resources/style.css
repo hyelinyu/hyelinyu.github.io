@@ -61,10 +61,9 @@ body.dark-mode {
 /* 헤더 배경 */
 body.dark-mode header {
   background-color: #1a1a1a !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
-  border-bottom: 1px solid #2a2a2a;
+  border-bottom: 1px solid #2c2c2c !important;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3); /* 부드럽게 경계 생성 */
 }
-
 
 /* 타이틀 */
 body.dark-mode .lynexa-title {
@@ -80,15 +79,15 @@ body .nav-link {
   color: #333;
 }
 body.dark-mode .nav-link {
-  color: #bbb !important;
+  color: #ccc !important;
 }
 body.dark-mode .nav-link:hover {
   color: #ffffff !important;
 }
 /* 메뉴 선택 색상 */
 body.dark-mode .nav-link.active {
-  color: #8ab4f8 !important;  /* 밝은 파란색 대신 구글 다크모드 계열 */
-  border-bottom: 2px solid #8ab4f8;
+  color: #8ab4f8 !important;
+  border-bottom: 2px solid #8ab4f8 !important;
 }
 
 /* 강조 색상 */
@@ -474,10 +473,14 @@ body.dark-mode main.container {
 }
 
 /* ---------- Main full-width in dark mode ---------- */
+/* 본문은 너무 꽉 차지 않도록 Bootstrap 기본 container 유지 */
 body.dark-mode main.container {
-  max-width: 100% !important;   /* bootstrap container 제한 해제 */
-  padding-left: 0 !important;
-  padding-right: 0 !important;
+  max-width: 960px !important;
+  margin: 80px auto 0 auto !important; /* 헤더 피하면서 가운데 정렬 */
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+  background-color: #141414 !important;
+  color: #ddd !important;
 }
 
 /* 다크모드: main에 my-5 같은 여백 제거 + 배경 색 덮어쓰기 */
