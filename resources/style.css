@@ -531,7 +531,8 @@ body.dark-mode .post-card {
 }
 
 body.dark-mode .post-card p,
-body.dark-mode .post-card small {
+body.dark-mode .post-card small,
+body.dark-mode .post-card .text-muted {
   color: #dcd9d9;
 }
 
