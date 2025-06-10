@@ -424,8 +424,8 @@ body.dark-mode .blog-post {
 }
 
 /* footer 위에 공백 생기는 요소 처리 */
-body.dark-mode .footer-separator,
-body.dark-mode .space-before-footer {
+body.dark-mode .space-before-footer,
+body.dark-mode .footer-separator {
   display: none !important;
   height: 0 !important;
 }
@@ -467,12 +467,6 @@ body.dark-mode main.container {
   margin-bottom: 0 !important;
 }
 
-/* ---------- Main full-width in dark mode ---------- */
-body.dark-mode main.container {
-  max-width: 100% !important;   /* bootstrap container 제한 해제 */
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-}
 
 /* 다크모드: main에 my-5 같은 여백 제거 + 배경 색 덮어쓰기 */
 body.dark-mode main.container {
