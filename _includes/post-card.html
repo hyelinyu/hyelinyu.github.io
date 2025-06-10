@@ -14,19 +14,18 @@
 </div> -->
 
 
-<div class="post-card d-flex border-bottom py-3">
-  <a href="{{ post.url }}" class="card-link-wrapper d-flex text-decoration-none text-reset">
-  <div class="flex-grow-1 pe-3">
-    <h5 class="fw-bold mb-1"><a href="{{ post.url }}">{{ post.title }}</a></h5>
-    <p class="text-muted mb-2">{{ post.excerpt | strip_html | truncate: 100 }}</p>
-    <small class="text-secondary d-block mb-1">
-  By {{ post.author | default: "Hyerin Yu" }} · {{ post.date | date: "%b %d %Y" }}
-</small>
-    <small class="text-dark"><strong>Comments ({{ post.comments | default: 0 }} replies)</strong></small>
-  </div>
-
-  <div class="thumbnail">
-    <img src="{{ post.thumbnail | default: '/assets/thumbnail/default.png' }}" alt="Thumbnail" class="img-fit" />
-  </div>
+<div class="post-card border-bottom">
+  <a href="{{ post.url | relative_url }}" class="card-link-wrapper text-decoration-none text-reset">
+    <div class="post-content pe-3">
+      <h5 class="fw-bold mb-1">{{ post.title }}</h5>
+      <p class="mb-2">{{ post.excerpt | strip_html | truncate: 100 }}</p>
+      <small class="d-block mb-1 text-secondary">
+        By {{ post.author | default: "Hyerin Yu" }} · {{ post.date | date: "%b %d %Y" }}
+      </small>
+      <small class="text-muted"><strong>Comments ({{ post.comments | default: 0 }} replies)</strong></small>
+    </div>
+    <div class="post-thumbnail">
+      <img src="{{ post.thumbnail | default: '/assets/thumbnail/default.png' }}" alt="Thumbnail" />
+    </div>
   </a>
 </div>

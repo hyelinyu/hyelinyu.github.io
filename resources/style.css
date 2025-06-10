@@ -581,7 +581,6 @@ body.dark-mode .post-content p {
 
 .post-thumbnail {
   width: 200px;
-  height: auto;
   flex-shrink: 0;
 }
 
