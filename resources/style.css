@@ -11,7 +11,7 @@ html, body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  padding-top: 80px !important;
+  padding-top: 80px;
 }
 
 main {
@@ -61,8 +61,7 @@ body.dark-mode {
 /* 헤더 배경 */
 body.dark-mode header {
   background-color: #1a1a1a !important;
-  border-bottom: 1px solid #2c2c2c !important;
-  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3); /* 부드럽게 경계 생성 */
+  border-bottom: 1px solid #2a2a2a;
 }
 
 /* 타이틀 */
@@ -79,15 +78,15 @@ body .nav-link {
   color: #333;
 }
 body.dark-mode .nav-link {
-  color: #ccc !important;
+  color: #bbb !important;
 }
 body.dark-mode .nav-link:hover {
   color: #ffffff !important;
 }
 /* 메뉴 선택 색상 */
 body.dark-mode .nav-link.active {
-  color: #8ab4f8 !important;
-  border-bottom: 2px solid #8ab4f8 !important;
+  color: #8ab4f8 !important;  /* 밝은 파란색 대신 구글 다크모드 계열 */
+  border-bottom: 2px solid #8ab4f8;
 }
 
 /* 강조 색상 */
@@ -153,17 +152,13 @@ header {
   top: 0;
   left: 0;
   width: 100%;
-
+  background-color: white; /* 배경색 지정 (투명해지는 문제 방지) */
   z-index: 1000; /* 다른 요소 위에 배치 */
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 추가 */
   padding: 15px 0;
 }
 
-body.light-mode header {
-  background-color: #ffffff !important;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
-  border-bottom: 1px solid #e0e0e0;
-}
+
 
 .lynexa-title {
   font-size: 24px; /* 타이틀 크기 */
@@ -472,16 +467,20 @@ body.dark-mode main.container {
   margin-bottom: 0 !important;
 }
 
-
-
-/* ✅ 다크모드에서 라이트모드와 유사한 메인 영역 만들기 */
+/* ---------- Main full-width in dark mode ---------- */
 body.dark-mode main.container {
-  background-color: #ffffff !important;
-  color: #333 !important;
+  max-width: 100% !important;   /* bootstrap container 제한 해제 */
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
 
-  max-width: 960px;
-  margin: 80px auto;
-  padding: 2rem 1rem;
-  box-shadow: 0 0 10px rgba(0,0,0,0.05); /* subtle한 그림자 */
-  border-radius: 8px;  /* 부드러운 모서리 */
+/* 다크모드: main에 my-5 같은 여백 제거 + 배경 색 덮어쓰기 */
+body.dark-mode main.container,
+body.dark-mode main.container.my-5 {
+  background-color: #141414 !important;
+  color: #ddd !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
 }
