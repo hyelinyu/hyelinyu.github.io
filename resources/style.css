@@ -475,12 +475,13 @@ body.dark-mode main.container {
 }
 
 /* 다크모드: main에 my-5 같은 여백 제거 + 배경 색 덮어쓰기 */
-body.dark-mode main.container,
-body.dark-mode main.container.my-5 {
+body.dark-mode main.container {
   background-color: #141414 !important;
   color: #ddd !important;
-  margin-top: 0 !important;
+ 
+}
+
+/* margin-top: 0 !important;
   margin-bottom: 0 !important;
   padding-top: 0 !important;
-  padding-bottom: 0 !important;
-}
+  padding-bottom: 0 !important; */
