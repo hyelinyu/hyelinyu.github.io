@@ -1,4 +1,4 @@
-<div class="col-md-6">
+<!-- <div class="col-md-6">
   <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
     <div class="col p-4 d-flex flex-column position-static">
       <strong class="d-inline-block mb-2 text-primary-emphasis">Data Analysis</strong>
@@ -10,5 +10,21 @@
     <div class="col-auto d-none d-lg-block">
       <svg class="bd-placeholder-img" width="200" height="250"></svg>
     </div>
+  </div>
+</div> -->
+
+
+<div class="post-card d-flex border-bottom py-3">
+  <div class="flex-grow-1 pe-3">
+    <h5 class="fw-bold mb-1"><a href="{{ post.url }}">{{ post.title }}</a></h5>
+    <p class="text-muted mb-2">{{ post.excerpt | strip_html | truncate: 100 }}</p>
+    <small class="text-secondary d-block mb-1">
+      By {{ post.author }} · {{ post.date | date: "%d %b %Y" }}
+    </small>
+    <small class="text-dark"><strong>Comments ({{ post.comments | default: 0 }} replies)</strong></small>
+  </div>
+
+  <div class="thumbnail">
+    <img src="{{ post.thumbnail | default: '/assets/thumbnail/default.png' }}" alt="Thumbnail" class="rounded" />
   </div>
 </div>
