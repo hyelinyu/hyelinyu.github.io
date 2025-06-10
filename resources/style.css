@@ -560,3 +560,30 @@ body.dark-mode .post-card h5 a {
   object-fit: cover;
   border-radius: 8px;
 }
+
+.card-link-wrapper {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+}
+
+.card-link-wrapper:hover {
+  background-color: rgba(0, 0, 0, 0.02); /* light mode */
+}
+
+body.dark-mode .card-link-wrapper:hover {
+  background-color: rgba(255, 255, 255, 0.04); /* dark mode */
+}
+
+.card-link-wrapper h5,
+.card-link-wrapper p,
+.card-link-wrapper small {
+  margin: 0;
+}
+
+.card-link-wrapper * {
+  pointer-events: none; /* 내부 요소 클릭도 a 링크로 처리 */
+}
+.card-link-wrapper {
+  pointer-events: auto; /* a 태그 전체는 클릭 가능 */
+}
