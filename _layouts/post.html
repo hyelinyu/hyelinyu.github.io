@@ -17,9 +17,15 @@
   <header class="p-3">
     <div class="container">
       <div class="d-flex justify-content-between align-items-center flex-wrap mb-2">
-        <img src="{{ '/assets/image_icon12.png' | relative_url }}" class="site-logo light-mode-img" />
-        <img src="{{ '/assets/image_darkmode.png' | relative_url }}" class="site-logo dark-mode-img" />
-        <h1 class="fw-bold lynexa-title m-0">Beautiful Oops</h1>
+                <a href="{{ '/' | relative_url }}">
+  <img src="{{ '/assets/image_icon12.png' | relative_url }}" class="site-logo light-mode-img" />
+</a>
+<a href="{{ '/' | relative_url }}">
+  <img src="{{ '/assets/image_darkmode.png' | relative_url }}" class="site-logo dark-mode-img" />
+</a>
+        <h1 class="fw-bold lynexa-title m-0">
+  <a href="{{ '/' | relative_url }}" class="text-reset text-decoration-none">Beautiful Oops</a>
+</h1>
 
         <div class="d-flex align-items-center flex-nowrap" style="gap: 10px;">
             <div class="dropdown">

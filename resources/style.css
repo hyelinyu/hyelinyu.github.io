@@ -587,3 +587,8 @@ body.dark-mode .card-link-wrapper:hover {
 .card-link-wrapper {
   pointer-events: auto; /* a 태그 전체는 클릭 가능 */
 }
+
+
+.lynexa-title a:hover {
+  text-decoration: underline;
+}
