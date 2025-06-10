@@ -407,7 +407,7 @@ body.dark-mode main {
   background-color: #141414 !important;
   color: #ddd;
 }
-body.dark-mode .container,
+
 body.dark-mode .blog-post,
 body.dark-mode .row,
 body.dark-mode .latest-posts-scroll {
