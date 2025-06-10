@@ -494,3 +494,45 @@ header .btn-link:focus-visible {
   text-decoration: none !important;  /* 밑줄 제거 */
   box-shadow: none !important;        /* 파란 아웃라인도 제거 */
 }
+
+.post-card {
+  align-items: flex-start;
+}
+
+.post-card .thumbnail img {
+  width: 100px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+.post-card h5 a {
+  color: #212529; /* 진한 검정 */
+  text-decoration: none;
+  font-weight: 700;
+}
+
+body.dark-mode .post-card h5 a {
+  color: #f1f1f1; /* 다크모드용 글씨색 */
+}
+
+/* 테마 토글 버튼: 포커스/클릭 시 파란 밑줄 제거 */
+header .btn-link:focus,
+header .btn-link:active,
+header .btn-link:focus-visible {
+  text-decoration: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+body.dark-mode .post-card {
+  color: #e5e5e5; /* 전체 텍스트 기본 색 */
+}
+
+body.dark-mode .post-card p,
+body.dark-mode .post-card small {
+  color: #ccc;
+}
+
+body.dark-mode .post-card h5 a {
+  color: #f1f1f1;
+}
