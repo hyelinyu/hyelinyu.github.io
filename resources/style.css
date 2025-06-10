@@ -515,9 +515,7 @@ body.dark-mode .post-card h5 a {
   color: #f1f1f1; /* 다크모드용 글씨색 */
 }
 
-body.dark-mode .post-card p {
-  color: #ced2d3f1; /* 다크모드용 글씨색 */
-}
+
 
 /* 테마 토글 버튼: 포커스/클릭 시 파란 밑줄 제거 */
 header .btn-link:focus,
@@ -534,12 +532,10 @@ body.dark-mode .post-card {
 
 body.dark-mode .post-card p,
 body.dark-mode .post-card small {
-  color: #ccc;
+  color: #dcd9d9;
 }
 
-body.dark-mode .post-card h5 a {
-  color: #f1f1f1;
-}
+
 
 .post-card {
   padding: 1.2rem 0;
