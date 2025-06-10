@@ -58,13 +58,33 @@
       </div>
 
       <nav class="border-top pt-2">
-        <ul class="nav">
-          <li class="nav-item"><a href="{{ '/' | relative_url }}" class="nav-link text-dark">All</a></li>
-          <li class="nav-item"><a href="#" class="nav-link text-dark">Projects</a></li>
-          <li class="nav-item"><a href="#" class="nav-link text-dark">Thoughts</a></li>
-          <li class="nav-item"><a href="#" class="nav-link text-dark">About Me</a></li>
-        </ul>
-      </nav>
+  <ul class="nav">
+    <li class="nav-item">
+      <a href="{{ '/' | relative_url }}"
+         class="nav-link text-dark {% if page.url == '/' %}active{% endif %}">
+         All
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{{ '/projects/' | relative_url }}"
+         class="nav-link text-dark {% if page.url == '/projects/' %}active{% endif %}">
+         Projects
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{{ '/thoughts/' | relative_url }}"
+         class="nav-link text-dark {% if page.url == '/thoughts/' %}active{% endif %}">
+         Thoughts
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{{ '/about/' | relative_url }}"
+         class="nav-link text-dark {% if page.url == '/about/' %}active{% endif %}">
+         About Me
+      </a>
+    </li>
+  </ul>
+</nav>
     </div>
   </header>
 
