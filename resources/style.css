@@ -58,10 +58,13 @@ html.dark-mode, body.dark-mode {
   background-color: #121212 !important;
   color: #e4e4e4 !important;
 }
-/* 헤더 배경 */
+/* ✅ 다크모드 헤더 개선 */
 body.dark-mode header {
-  background-color: #1a1a1a !important;
-  border-bottom: 1px solid #2a2a2a;
+  background-color: #1e1e1e !important;       /* 살짝 밝은 어두운 톤 */
+  border-bottom: 1px solid #2a2a2a;           /* 얇은 경계선 */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25); /* 라이트모드와 유사한 그림자 효과 */
+  padding: 15px 0;
+  z-index: 1000;
 }
 
 /* 타이틀 */
@@ -473,6 +476,10 @@ body.dark-mode main.container {
   background-color: #141414 !important;
   color: #ddd !important;
  
+}
+
+body.dark-mode .container {
+  background-color: transparent !important;  /* 헤더 안쪽 색상 충돌 방지 */
 }
 
 /* margin-top: 0 !important;
