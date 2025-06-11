@@ -576,10 +576,10 @@ body.dark-mode .post-card .text-muted strong {
 
 .card-link-wrapper {
   display: flex;
-  justify-content: space-between;
   width: 100%;
-  text-decoration: none;
-  color: inherit;
+  overflow: hidden;         /* 핵심! 공백 확장 방지 */
+  align-items: flex-start;
+  justify-content: space-between;
 }
 
 .card-link-wrapper:hover {
