@@ -1,32 +1,41 @@
 <div class="post-card border-bottom d-flex justify-content-between align-items-start py-3">
-  <a href="{{ post.url | relative_url }}" class="card-link-wrapper text-decoration-none text-reset d-flex w-100">
 
-    <!-- ① 왼쪽 텍스트 -->
-    <div class="post-content flex-grow-1 me-3">
-      <h5 class="fw-bold mb-1">{{ post.title }}</h5>
-      <p class="summary">{{ post.excerpt | strip_html | truncate: 100 }}</p>
+  <!-- ① 왼쪽 텍스트 블록 -->
+  <div class="post-content flex-grow-1 me-3">
 
-      <!-- 작성자 · 날짜 -->
-      <small class="d-block text-secondary mb-1">
-        By {{ post.author | default: "Hyerin Yu" }} · {{ post.date | date: "%b %d %Y" }}
-      </small>
+    <!-- 제목에만 링크 -->
+    <h5 class="fw-bold mb-1">
+      <a href="{{ post.url | relative_url }}" class="text-reset text-decoration-none">
+        {{ post.title }}
+      </a>
+    </h5>
 
-      <!-- ✅ 댓글 수: 이 안에 있어야 밀리지 않음 -->
-      <small class="text-muted d-block">
-        <strong>
-          <span class="giscus-count text-muted"
-                data-giscus-id="{{ post.url | relative_url }}"
-                href="{{ post.url | relative_url }}#giscus-container">
-            Comments (<span class="g-count">0</span>)
-          </span>
-        </strong>
-      </small>
-    </div>
+    <!-- 요약 -->
+    <p class="summary">{{ post.excerpt | strip_html | truncate: 100 }}</p>
 
-    <!-- ② 오른쪽 썸네일 -->
-    <div class="post-thumbnail">
+    <!-- 작성자 · 날짜 -->
+    <small class="d-block text-secondary mb-1">
+      By {{ post.author | default: "Hyerin Yu" }} · {{ post.date | date: "%b %d %Y" }}
+    </small>
+
+    <!-- ✅ 댓글 수 (정확히 giscus 연동됨) -->
+    <small class="text-muted d-block">
+      <strong>
+        <a class="giscus-count text-muted text-decoration-none"
+           href="{{ post.url | relative_url }}#giscus-container"
+           data-giscus-id="{{ post.url | relative_url }}">
+          Comments (<span class="g-count">0</span>)
+        </a>
+      </strong>
+    </small>
+  </div>
+
+  <!-- ② 썸네일 오른쪽 -->
+  <div class="post-thumbnail">
+    <a href="{{ post.url | relative_url }}">
       <img src="{{ post.thumbnail | default: '/assets/thumbnail/default.png' }}" alt="Thumbnail" />
-    </div>
-  </a>
+    </a>
+  </div>
+
 </div>
 
