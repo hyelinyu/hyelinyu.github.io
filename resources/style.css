@@ -790,3 +790,8 @@ body.dark-mode  .giscus-count { color:#8ab4f8; }
     max-height: 200px;
   }
 }
+
+/* 다크모드에서 text-muted 텍스트 밝게 보이도록 수정 */
+body.dark-mode .text-muted {
+  color: #b0b0b0 !important;  /* 또는 #cccccc, #bbbbbb 등 더 밝게 가능 */
+}
