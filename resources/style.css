@@ -5,19 +5,20 @@
   }
 
 
-html, body {
-  background-color: white;
-  height: 100%;
+/* ───────── Sticky Footer & Giscus 여백 (최종본) ───────── */
+html, body {            /* footer를 바닥에 고정할 flex 레이아웃 */
+  min-height: 100vh;
   margin: 0;
   display: flex;
   flex-direction: column;
-  padding-top: 80px;
+  padding-top: 80px;    /* 헤더 고정 높이 */
 }
 
 main {
   flex-grow: 1 !important;
   display: flex;
   flex-direction: column;
+  flex: 1 0 auto;
   min-height: calc(100vh - 150px); /* 헤더 + 푸터 높이를 제외한 최소 높이 설정 */
    overflow: visible !important;
 }
@@ -206,9 +207,11 @@ footer {
   width: 100%;
   background-color: #f8f9fa;
   padding: 20px;
+  flex-shrink: 0;  
   text-align: center !important;
   position: relative !important;
-  margin-top: auto !important; /* 위쪽 공간 자동 확보 */
+  margin-top: 2rem;      /* ↔ 필요시 px 로 조정 */
+  border-top: 1px solid rgba(0,0,0,0.15);
 }
 
 .nav.list-unstyled {
@@ -357,14 +360,9 @@ body.dark-mode .dark-mode-img {
 }
 
 /* 푸터 전체 색상 통제 */
-body.light-mode footer {
-  background-color: #f8f9fa;
-  color: #555555;
-}
-body.dark-mode footer {
-  background-color: #141414;
-  color: #cccccc;
-}
+
+body.light-mode footer { background:#f8f9fa; color:#444; }
+body.dark-mode  footer { background:#141414; color:#ccc; border-top-color:#333; }
 
 /* 푸터 링크 색상 통제 */
 body.light-mode footer a {
@@ -705,6 +703,7 @@ body.dark-mode footer {
 #giscus-container,
 .comments-section,
 iframe.giscus-frame {
+  margin-bottom: 90px !important;
   overflow: visible !important;
   min-height: 300px !important;  /* 안전용 */
 }
@@ -715,10 +714,20 @@ body.dark-mode footer {
   margin-top: auto !important;   /* flex 기준 맨 아래로 밀고, 겹침 방지 */
 }
 
-#giscus-container {              /* 댓글 끝과 footer 사이 2.2 cm ≈ 90 px */
-  margin-bottom: 90px !important;
-}
 
 body.dark-mode .container {      /* 다크모드 흰 줄(컨테이너 배경) 제거 */
   background-color: #141414 !important;
+}
+
+footer {               /* footer는 항상 맨 아래 */
+  flex-shrink: 0;
+  margin-top: 2rem !important;   /* ↔ 원하는 여백 조정 */
+}
+
+/* ─── 카드 목록: 초록 배지 제거 ─── */
+.post-card .text-muted strong {
+  background: transparent !important;  /* bg-success 초기화 */
+  color: inherit !important;           /* 글자색만 상속 */
+  padding: 0 !important;               /* 배지 내부 패딩 제거 */
+  border-radius: 0 !important;         /* 둥근 모서리 제거 */
 }
