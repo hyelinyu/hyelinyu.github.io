@@ -100,54 +100,77 @@
       <h1 class="fw-bold">{{ page.title }}</h1>
       <p class="text-muted">{{ page.date | date: "%B %d, %Y" }}</p>
       {{ content }}
-      <div class="comments-section" id="giscus-container"></div>
+      <hr>
 
-<script>
-  function loadGiscus(theme) {
-    const giscusContainer = document.getElementById('giscus-container');
-    if (!giscusContainer) return;
+  <!-- 🎲 랜덤 포스트 이동 버튼 -->
+  <div class="random-post-button" style="margin: 2rem 0; text-align: center;">
+    <button onclick="goToRandomPost()" class="btn btn-primary">
+      I’m feeling unlucky… 🎲
+    </button>
+  </div>
 
-    const script = document.createElement('script');
-    script.src = 'https://giscus.app/client.js';
-    script.setAttribute('data-repo', 'hyelinyu/hyelinyu.github.io');
-    script.setAttribute('data-repo-id', 'R_kgDONvt9Hw');
-    script.setAttribute('data-category', 'General');
-    script.setAttribute('data-category-id', 'DIC_kwDONvt9H84CrUo5');
-    script.setAttribute('data-mapping', 'pathname');
-    script.setAttribute('data-strict', '0');
-    script.setAttribute('data-reactions-enabled', '1');
-    script.setAttribute('data-emit-metadata', '0');
-    script.setAttribute('data-input-position', 'bottom');
-    script.setAttribute('data-theme', theme); // ⭐ 테마 자동 설정
-    script.setAttribute('data-lang', 'en');
-    script.setAttribute('crossorigin', 'anonymous');
-    script.async = true;
+  <!-- 💬 댓글 영역 -->
+  <div class="comments-section" id="giscus-container"></div>
 
-    giscusContainer.innerHTML = ''; // 기존 댓글 iframe 제거
-    giscusContainer.appendChild(script);
-  }
+  <!-- ✅ giscus 댓글 스크립트 -->
+  <script>
+    function loadGiscus(theme) {
+      const giscusContainer = document.getElementById('giscus-container');
+      if (!giscusContainer) return;
 
-  // 첫 로딩 시 현재 모드 판단
-  const isDark = document.body.classList.contains('dark-mode');
-  loadGiscus(isDark ? 'gruvbox_dark' : 'gruvbox_light');
+      const script = document.createElement('script');
+      script.src = 'https://giscus.app/client.js';
+      script.setAttribute('data-repo', 'hyelinyu/hyelinyu.github.io');
+      script.setAttribute('data-repo-id', 'R_kgDONvt9Hw');
+      script.setAttribute('data-category', 'General');
+      script.setAttribute('data-category-id', 'DIC_kwDONvt9H84CrUo5');
+      script.setAttribute('data-mapping', 'pathname');
+      script.setAttribute('data-strict', '0');
+      script.setAttribute('data-reactions-enabled', '1');
+      script.setAttribute('data-emit-metadata', '0');
+      script.setAttribute('data-input-position', 'bottom');
+      script.setAttribute('data-theme', document.body.classList.contains('dark-mode') ? 'dark_dimmed' : 'gruvbox_light');
+      script.setAttribute('data-lang', 'en');
+      script.setAttribute('crossorigin', 'anonymous');
+      script.async = true;
 
-  // 모드가 바뀔 때 Giscus 테마도 바꾸기 (body class 감지)
-  const observer = new MutationObserver(() => {
-    const isNowDark = document.body.classList.contains('dark-mode');
-    const iframe = document.querySelector('iframe.giscus-frame');
-    if (iframe) {
-      iframe.contentWindow.postMessage({
-        giscus: {
-          setConfig: {
-            theme: isNowDark ? 'gruvbox_dark' : 'gruvbox_light'
-          }
-        }
-      }, 'https://giscus.app');
+      giscusContainer.innerHTML = '';
+      giscusContainer.appendChild(script);
     }
-  });
 
-  observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-</script>
+    // 처음 로드 시 Giscus 테마 설정
+    document.addEventListener('DOMContentLoaded', () => {
+      loadGiscus(document.body.classList.contains('dark-mode') ? 'dark_dimmed' : 'gruvbox_light');
+    });
+
+    // 다크모드 변경 시 Giscus 테마 동기화
+    const observer = new MutationObserver(() => {
+      const isDarkNow = document.body.classList.contains('dark-mode');
+      const iframe = document.querySelector('iframe.giscus-frame');
+      if (iframe) {
+        iframe.contentWindow.postMessage({
+          giscus: {
+            setConfig: {
+              theme: isDarkNow ? 'dark_dimmed' : 'gruvbox_light'
+            }
+          }
+        }, 'https://giscus.app');
+      }
+    });
+
+    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+    // 🎲 랜덤 포스트 URL 목록 (Liquid 문법 주의!)
+    const postUrls = [
+      {% for post in site.posts %}
+        '{{ post.url }}'{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ];
+    function goToRandomPost() {
+      const randomUrl = postUrls[Math.floor(Math.random() * postUrls.length)];
+      window.location.href = randomUrl;
+    }
+  </script>
     </article>
   </main>
 
