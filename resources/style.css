@@ -864,3 +864,54 @@ body.dark-mode .post-card .meta-info-icons {
 .post-content .summary {
   width: 100%;
 }
+.post-title {
+  white-space: normal;
+  word-break: break-word;
+  line-height: 1.4;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+/* 추가된 핵심 스타일 */
+
+.post-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.post-title {
+  white-space: normal;
+  word-break: break-word;
+  font-size: 1.25rem;
+  font-weight: bold;
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+}
+
+.meta-info-icons {
+  display: flex !important;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: #6c757d;
+  outline: none;
+}
+
+body.dark-mode .meta-info-icons {
+  color: #b0b0b0;
+}
+
+/* 댓글 아이콘 제거 후 정렬 유지용 */
+.meta-info-icons .giscus-count {
+  display: inline-block;
+  font-weight: normal;
+  margin-left: 0;
+  text-decoration: none;
+  color: inherit;
+}
+
+.meta-info-icons .giscus-count:hover {
+  text-decoration: underline;
+}
+
+/* 기존 style.css 내용 아래에 그대로 유지됨 */
