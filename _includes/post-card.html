@@ -1,26 +1,28 @@
 <div class="post-card border-bottom">
-  <a href="{{ post.url | relative_url }}" class="card-link-wrapper text-decoration-none text-reset">
-    <div class="post-content pe-3">
-      <h5 class="fw-bold mb-1">{{ post.title }}</h5>
-      <p class="mb-2">{{ post.excerpt | strip_html | truncate: 100 }}</p>
-      <small class="d-block mb-1 text-secondary">
-        By {{ post.author | default: "Hyerin Yu" }} · {{ post.date | date: "%b %d %Y" }}
-      </small>
-     <small class="text-muted">
-  <strong>
-    <a class="giscus-count text-muted text-decoration-none"
-       href="{{ post.url | relative_url }}#giscus-container"
-       data-giscus-id="{{ post.url | relative_url }}">
-       Comments (<span class="g-count">0</span>)
+  <div class="card-link-wrapper text-decoration-none text-reset">
+    <a href="{{ post.url | relative_url }}" class="d-flex w-100">
+      <div class="post-content pe-3">
+        <h5 class="fw-bold mb-1">{{ post.title }}</h5>
+        <p class="mb-2">{{ post.excerpt | strip_html | truncate: 100 }}</p>
+        <small class="d-block mb-1 text-secondary">
+          By {{ post.author | default: "Hyerin Yu" }} · {{ post.date | date: "%b %d %Y" }}
+        </small>
+      </div>
+      <div class="post-thumbnail">
+        <img src="{{ post.thumbnail | default: '/assets/thumbnail/default.png' }}" alt="Thumbnail" />
+      </div>
     </a>
-  </strong>
-</small>
-    </div>
-    <div class="post-thumbnail">
-      <img src="{{ post.thumbnail | default: '/assets/thumbnail/default.png' }}" alt="Thumbnail" />
-    </div>
-  </a>
-</div> 
-
+    <!-- ✅ 댓글 수는 카드 링크 바깥으로 분리 -->
+    <small class="text-muted mt-1 ms-1 d-block">
+      <strong>
+        <a class="giscus-count text-muted text-decoration-none"
+           href="{{ post.url | relative_url }}#giscus-container"
+           data-giscus-id="{{ post.url | relative_url }}">
+          Comments (<span class="g-count">0</span>)
+        </a>
+      </strong>
+    </small>
+  </div>
+</div>
 
 
