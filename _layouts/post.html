@@ -199,9 +199,20 @@
     {% endfor %}
   ];
   function goToRandomPost() {
-    const randomUrl = postUrls[Math.floor(Math.random() * postUrls.length)];
+  const currentPath = window.location.pathname;
+
+  // 현재 게시물 제외
+  const filteredUrls = postUrls.filter(url => url !== currentPath);
+
+  // 남은 것 중 랜덤 선택
+  const randomUrl = filteredUrls[Math.floor(Math.random() * filteredUrls.length)];
+
+  if (randomUrl) {
     window.location.href = randomUrl;
+  } else {
+    alert("다른 게시물이 없습니다!");
   }
+}
 </script>
     </article>
   </main>
