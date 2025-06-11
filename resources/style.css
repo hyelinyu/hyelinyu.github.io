@@ -678,3 +678,6 @@ iframe.giscus-frame {
   width: 100% !important;
   display: block;
 }
+main, .container, .comments-section {
+  overflow: visible !important;
+}
