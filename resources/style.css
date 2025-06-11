@@ -708,3 +708,17 @@ iframe.giscus-frame {
   overflow: visible !important;
   min-height: 300px !important;  /* 안전용 */
 }
+
+/* ─── [HOTFIX] 댓글 ↔ footer 겹침 & 흰 줄 제거 ─── */
+body.light-mode footer,
+body.dark-mode footer {
+  margin-top: auto !important;   /* flex 기준 맨 아래로 밀고, 겹침 방지 */
+}
+
+#giscus-container {              /* 댓글 끝과 footer 사이 2.2 cm ≈ 90 px */
+  margin-bottom: 90px !important;
+}
+
+body.dark-mode .container {      /* 다크모드 흰 줄(컨테이너 배경) 제거 */
+  background-color: #141414 !important;
+}
