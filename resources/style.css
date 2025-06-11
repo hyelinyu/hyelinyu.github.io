@@ -563,13 +563,11 @@ body.dark-mode .post-card .text-muted strong {
   color: #cccccc !important;
 }
 
-
 .post-card {
-  padding: 1.2rem 0;
   display: flex;
-  justify-content: space-between;
   align-items: flex-start;
   gap: 1.5rem;
+  padding: 1.5rem 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -599,16 +597,16 @@ body.dark-mode .card-link-wrapper:hover {
 
 
 
-
 .post-content {
-  flex: 1;
+  flex: 1 1 auto;
   min-width: 0;
+  display: flex;
   flex-direction: column;
   justify-content: center;
 }
 .post-content h5 {
+  margin-bottom: 0.4rem;
   font-size: 1.1rem;
-  margin-bottom: 0.3rem;
   line-height: 1.4;
 }
 .post-content p {
@@ -620,9 +618,9 @@ body.dark-mode .post-content p {
 }
 
 .post-thumbnail {
+  width: 160px;
+  height: 110px;
   flex-shrink: 0;
-  width: 140px;
-  height: 100px;
 }
 /* ─── 요약 2~3줄 라인-클램프 ─── */
 .post-content .summary {
