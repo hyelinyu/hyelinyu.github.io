@@ -19,6 +19,7 @@ main {
   display: flex;
   flex-direction: column;
   min-height: calc(100vh - 150px); /* 헤더 + 푸터 높이를 제외한 최소 높이 설정 */
+   overflow: visible !important;
 }
 
 /* 🌙 다크모드 전체 적용 */
@@ -573,6 +574,11 @@ body.dark-mode .card-link-wrapper:hover {
   pointer-events: auto; /* 내부도 다시 클릭 가능 */
 }
 
+
+
+
+
+
 .post-content {
   flex: 1;
 }
@@ -600,10 +606,6 @@ body.dark-mode .post-content p {
   border-radius: 8px;
 }
 
-/* 게시글 내용과 버튼 사이 여백 */
-.post-content > p:last-of-type {
-  margin-bottom: 1.5rem;
-}
 
 /* 버튼과 댓글 영역 사이 여백 */
 #utterances, /* GitHub 댓글 위젯 */
@@ -617,10 +619,7 @@ body.dark-mode .post-content p {
   margin-top: 2rem;
 }
 
-/* 게시글 마지막 줄과 선 사이 여백 */
-.post-content p:last-of-type {
-  margin-bottom: 2rem;
-}
+
 
 /* 선(hr) 위아래 여백 명확하게 */
 hr {
@@ -631,4 +630,51 @@ hr {
 /* 랜덤 버튼 위쪽 여백 (혹시 버튼이 hr과 붙는 경우) */
 .random-post-button {
   margin-top: 2rem;
+}
+
+/* 본문 마지막 줄 ↔ <hr> 사이 */
+.blog-post p:last-of-type {
+  margin-bottom: 2rem;          /* 필요에 따라 1.5rem 조정 */
+}
+
+/* <hr> 자체 여백 */
+.blog-post hr {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* 랜덤 버튼 위쪽 여백 */
+.random-post-button {
+  margin-top: 2rem;
+}
+
+/* 댓글 영역 위쪽 여백 – 클래스 철자 수정 */
+#utterances,
+.comments-section {              /* <- s 붙여주세요 */
+  margin-top: 2rem;
+}
+
+/* ───── 댓글 + 푸터 간 여백 확보 ───── */
+
+/* ① 단일 포스트 박스 자체에 바닥 패딩 */
+.blog-post {
+  padding-bottom: 85px !important;   /* ← footer 높이만큼 확보 */
+}
+
+/* ② 다크모드 리셋 덮어쓰기 */
+body.dark-mode .blog-post {
+  padding-bottom: 3.5rem !important;   /* 역시 강제 유지 */
+  margin-bottom: initial !important;   /* 필요하면 기본값으로 */
+}
+
+/* ③ giscus iframe·컨테이너 보강 (안전용) */
+.comments-section,
+#giscus-container,
+iframe.giscus-frame {
+  margin-bottom: 1.5rem !important;
+}
+iframe.giscus-frame {
+  min-height: 300px !important;
+  width: 100% !important;
+  display: block;
 }
