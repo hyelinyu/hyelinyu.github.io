@@ -25,7 +25,12 @@
       <small class="text-muted"><strong>Comments ({{ post.comments | default: 0 }} replies)</strong></small>
     </div>
     <div class="post-thumbnail">
-      <img src="{{ post.thumbnail | default: '/assets/thumbnail/default.png' }}" alt="Thumbnail" />
-    </div>
+  {%- assign thumb = post.thumbnail | downcase | strip -%}
+  {%- if thumb == '' or thumb == nil or thumb == 'default' -%}
+    <img src="/assets/thumbnail/default.png" alt="Thumbnail" />
+  {%- else -%}
+    <img src="{{ post.thumbnail }}" alt="Thumbnail" />
+  {%- endif -%}
+</div>
   </a>
 </div>
