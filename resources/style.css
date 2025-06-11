@@ -317,7 +317,17 @@ body.dark-mode .header-icon {
 body.dark-mode .header-icon:hover {
   color: #fff;
 }
-
+/* ─── 헤더·네비게이션 다크모드 색 교정 ─── */
+body.dark-mode header nav.border-top {               /* ① 새하얀 선 → 어두운 회색 */
+  border-top: 1px solid #2a2a2a !important;
+}
+body.dark-mode header .container {                   /* ② 컨테이너 바탕 투명화 */
+  background: transparent !important;
+}
+body.dark-mode header {                              /* ③ 헤더 전체 배경·보더 통일 */
+  background:#1e1e1e !important;
+  border-bottom:1px solid #2a2a2a !important;
+}
 /* 드롭다운 버튼 내 파란 밑줄 제거 */
 .dropdown-toggle:focus,
 .dropdown-toggle:active,
