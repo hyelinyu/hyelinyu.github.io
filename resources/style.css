@@ -280,10 +280,9 @@ footer {
 }
 
 .post-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin: 0 0 8px;
-  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
 }
 
 .meta-info {
@@ -565,8 +564,8 @@ body.dark-mode .post-card .text-muted strong {
 
 .post-card {
   display: flex;
-  align-items: flex-start;
   justify-content: space-between;
+  align-items: flex-start;
   gap: 1.5rem;
   padding: 1.5rem 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -603,18 +602,16 @@ body.dark-mode .card-link-wrapper:hover {
   flex-direction: column;
 }
 
-.post-title {
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin-bottom: 0.4rem;
-  line-height: 1.3;
-}
 
 .summary {
   font-size: 0.95rem;
-  color: #888;
-  margin-bottom: 0.6rem;
+  color: #6c757d;
+  margin-bottom: 0.75rem;
   line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 body.dark-mode .summary {
   color: #ccc;
@@ -633,8 +630,8 @@ body.dark-mode .post-content p {
 }
 
 .post-thumbnail {
-  width: 160px;
-  height: 110px;
+  width: 150px;
+  height: 100px;
   flex-shrink: 0;
 }
 /* ─── 요약 2~3줄 라인-클램프 ─── */
@@ -798,12 +795,17 @@ body.dark-mode .text-muted {
   color: #b0b0b0 !important;  /* 또는 #cccccc, #bbbbbb 등 더 밝게 가능 */
 }
 
-.meta-info {
-  font-size: 0.8rem;
-  color: #999;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.2rem;
+.meta-info-icons .meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.meta-info-icons a {
+  text-decoration: none;
+  color: inherit;
+}
+.meta-info-icons a:hover {
+  text-decoration: underline;
 }
 body.dark-mode .meta-info {
   color: #b0b0b0;
