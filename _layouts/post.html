@@ -102,75 +102,95 @@
       {{ content }}
       <hr>
 
-  <!-- 🎲 랜덤 포스트 이동 버튼 -->
-  <div class="random-post-button" style="margin: 2rem 0; text-align: center;">
-    <button onclick="goToRandomPost()" class="btn btn-primary">
-      I’m feeling unlucky… 🎲
-    </button>
-  </div>
+<!-- 🎲 랜덤 포스트 이동 버튼 -->
+<div class="random-post-button" style="margin: 2rem 0; text-align: center;">
+  <button id="random-post-btn" onclick="goToRandomPost()" class="btn btn-primary">
+    I’m feeling unlucky… 🎲
+  </button>
+</div>
 
-  <!-- 💬 댓글 영역 -->
-  <div class="comments-section" id="giscus-container"></div>
+<!-- 💬 댓글 영역 -->
+<div class="comments-section" id="giscus-container"></div>
 
-  <!-- ✅ giscus 댓글 스크립트 -->
-  <script>
-    function loadGiscus(theme) {
-      const giscusContainer = document.getElementById('giscus-container');
-      if (!giscusContainer) return;
+<!-- ✅ giscus + 랜덤 기능 스크립트 -->
+<script>
+  function loadGiscus(theme) {
+    const giscusContainer = document.getElementById('giscus-container');
+    if (!giscusContainer) return;
 
-      const script = document.createElement('script');
-      script.src = 'https://giscus.app/client.js';
-      script.setAttribute('data-repo', 'hyelinyu/hyelinyu.github.io');
-      script.setAttribute('data-repo-id', 'R_kgDONvt9Hw');
-      script.setAttribute('data-category', 'General');
-      script.setAttribute('data-category-id', 'DIC_kwDONvt9H84CrUo5');
-      script.setAttribute('data-mapping', 'pathname');
-      script.setAttribute('data-strict', '0');
-      script.setAttribute('data-reactions-enabled', '1');
-      script.setAttribute('data-emit-metadata', '0');
-      script.setAttribute('data-input-position', 'bottom');
-      script.setAttribute('data-theme', document.body.classList.contains('dark-mode') ? 'dark_dimmed' : 'gruvbox_light');
-      script.setAttribute('data-lang', 'en');
-      script.setAttribute('crossorigin', 'anonymous');
-      script.async = true;
+    const script = document.createElement('script');
+    script.src = 'https://giscus.app/client.js';
+    script.setAttribute('data-repo', 'hyelinyu/hyelinyu.github.io');
+    script.setAttribute('data-repo-id', 'R_kgDONvt9Hw');
+    script.setAttribute('data-category', 'General');
+    script.setAttribute('data-category-id', 'DIC_kwDONvt9H84CrUo5');
+    script.setAttribute('data-mapping', 'pathname');
+    script.setAttribute('data-strict', '0');
+    script.setAttribute('data-reactions-enabled', '1');
+    script.setAttribute('data-emit-metadata', '0');
+    script.setAttribute('data-input-position', 'bottom');
+    script.setAttribute('data-theme', document.body.classList.contains('dark-mode') ? 'dark_dimmed' : 'gruvbox_light');
+    script.setAttribute('data-lang', 'en');
+    script.setAttribute('crossorigin', 'anonymous');
+    script.async = true;
 
-      giscusContainer.innerHTML = '';
-      giscusContainer.appendChild(script);
-    }
+    giscusContainer.innerHTML = '';
+    giscusContainer.appendChild(script);
+  }
 
-    // 처음 로드 시 Giscus 테마 설정
-    document.addEventListener('DOMContentLoaded', () => {
-      loadGiscus(document.body.classList.contains('dark-mode') ? 'dark_dimmed' : 'gruvbox_light');
-    });
+  document.addEventListener('DOMContentLoaded', () => {
+    // Giscus 테마 적용
+    loadGiscus(document.body.classList.contains('dark-mode') ? 'dark_dimmed' : 'gruvbox_light');
 
-    // 다크모드 변경 시 Giscus 테마 동기화
-    const observer = new MutationObserver(() => {
-      const isDarkNow = document.body.classList.contains('dark-mode');
-      const iframe = document.querySelector('iframe.giscus-frame');
-      if (iframe) {
-        iframe.contentWindow.postMessage({
-          giscus: {
-            setConfig: {
-              theme: isDarkNow ? 'dark_dimmed' : 'gruvbox_light'
-            }
-          }
-        }, 'https://giscus.app');
-      }
-    });
+    // 🎲 버튼 텍스트 랜덤 설정
+    const randomLabels = [
+      'Oops me again!',
+      'Take me somewhere weird',
+      'Roll the dice 🎲',
+      'Surprise me! 🎁',
+      'Spin the blog wheel!',
+      'Teleport me 🚀',
+      'Hit me with it!',
+      'Next Oops ?',
+      'Another oops, please!',
+      'I’m bored. Fix it.',
+      'What’s behind this button? 👀'
 
-    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-
-    // 🎲 랜덤 포스트 URL 목록 (Liquid 문법 주의!)
-    const postUrls = [
-      {% for post in site.posts %}
-        '{{ post.url }}'{% unless forloop.last %},{% endunless %}
-      {% endfor %}
     ];
-    function goToRandomPost() {
-      const randomUrl = postUrls[Math.floor(Math.random() * postUrls.length)];
-      window.location.href = randomUrl;
+    const randomBtn = document.getElementById('random-post-btn');
+    if (randomBtn) {
+      const randomLabel = randomLabels[Math.floor(Math.random() * randomLabels.length)];
+      randomBtn.textContent = randomLabel;
     }
-  </script>
+  });
+
+  // 다크모드 동기화
+  const observer = new MutationObserver(() => {
+    const isDarkNow = document.body.classList.contains('dark-mode');
+    const iframe = document.querySelector('iframe.giscus-frame');
+    if (iframe) {
+      iframe.contentWindow.postMessage({
+        giscus: {
+          setConfig: {
+            theme: isDarkNow ? 'dark_dimmed' : 'gruvbox_light'
+          }
+        }
+      }, 'https://giscus.app');
+    }
+  });
+  observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+  // 🎲 랜덤 포스트 URL 목록
+  const postUrls = [
+    {% for post in site.posts %}
+      '{{ post.url }}'{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ];
+  function goToRandomPost() {
+    const randomUrl = postUrls[Math.floor(Math.random() * postUrls.length)];
+    window.location.href = randomUrl;
+  }
+</script>
     </article>
   </main>
 

@@ -599,3 +599,20 @@ body.dark-mode .post-content p {
   object-fit: cover;
   border-radius: 8px;
 }
+
+/* 게시글 내용과 버튼 사이 여백 */
+.post-content > p:last-of-type {
+  margin-bottom: 1.5rem;
+}
+
+/* 버튼과 댓글 영역 사이 여백 */
+#utterances, /* GitHub 댓글 위젯 */
+.comment-section {
+  margin-top: 2rem;
+}
+
+/* 댓글 입력창 상단 여백 */
+.giscus, /* 또는 utterances-container, 사용하는 댓글 시스템에 따라 달라짐 */
+.giscus-frame {
+  margin-top: 2rem;
+}
