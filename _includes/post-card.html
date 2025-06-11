@@ -1,42 +1,38 @@
+{%- assign word_count = post.content | strip_html | number_of_words -%}
+{%- assign minutes = word_count | plus:199 | divided_by:200 -%}
+
 <div class="post-card border-bottom">
   <a href="{{ post.url | relative_url }}" class="card-link-wrapper text-decoration-none text-reset">
-
-    <!-- 텍스트 왼쪽 -->
+    
+    <!-- 왼쪽 텍스트 -->
     <div class="post-content">
       <h5 class="post-title">{{ post.title }}</h5>
+      <p class="summary">{{ post.excerpt | strip_html | truncate: 100 }}</p>
 
-      <p class="summary">
-        {{ post.excerpt | strip_html | truncate: 100 }}
-      </p>
-
-      <div class="meta-info">
-        <span>By {{ post.author | default: "Hyerin Yu" }}</span>
-        <span>{{ post.date | date: "%b %d %Y" }}</span>
-        <span class="d-inline-flex align-items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
-            class="bi bi-clock me-1" viewBox="0 0 16 16" style="position: relative; top: 1px;">
-            <path d="M8 3.5a.5.5 0 0 1 .5.5v4l3 1.5a.5.5 0 0 1-.5.866l-3.5-1.75A.5.5 0 0 1 7.5 8V4a.5.5 0 0 1 .5-.5z"/>
-            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm0-1A7 7 0 1 1 8 1a7 7 0 0 1 0 14z"/>
-          </svg>
-          {{ m }} min
+      <div class="meta-info-icons">
+        <span class="meta-item">
+          <i class="bi bi-calendar me-1"></i>{{ post.date | date: "%b %d" }}
         </span>
-        <span>
-          <a class="giscus-count text-muted" href="{{ post.url | relative_url }}#giscus-container"
+        <span class="meta-item">
+          <i class="bi bi-clock me-1"></i>{{ minutes }} min
+        </span>
+        <span class="meta-item">
+          <i class="bi bi-chat-dots me-1"></i>
+          <a class="giscus-count" href="{{ post.url | relative_url }}#giscus-container"
             data-repo="hyelinyu/hyelinyu.github.io"
             data-repo-id="R_kgDONvt9Hw"
             data-category-id="DIC_kwDONvt9H84CrUo5"
             data-mapping="pathname">
-            <span class="g-count">0</span> Comments
+            <span class="g-count">0</span>
           </a>
         </span>
       </div>
     </div>
 
-    <!-- 썸네일 오른쪽 -->
+    <!-- 오른쪽 썸네일 -->
     <div class="post-thumbnail">
       {%- assign thumb = post.thumbnail | downcase | strip -%}
       <img src="{{ thumb == '' or thumb == 'default' ? '/assets/thumbnail/default.png' : post.thumbnail }}" alt="Thumbnail" />
     </div>
-
   </a>
 </div>

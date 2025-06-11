@@ -820,12 +820,13 @@ body.dark-mode .meta-info {
 
 /* 2) Layout the date / clock / comments in one row */
 .post-card .meta-info-icons {
-  display: flex;
+  display: flex !important;
   align-items: center;
   gap: 1rem;          /* space between date, clock, comments */
   margin-top: 0.75rem; /* a bit of breathing room under the summary */
   font-size: 0.85rem;
-  color: #6c757d;     /* matches your summary color */
+  color: #6c757d;   
+  outline: 2px dashed red;  /* matches your summary color */
 }
 
 body.dark-mode .post-card .meta-info-icons {
