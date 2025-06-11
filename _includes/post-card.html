@@ -16,21 +16,42 @@
 
 <div class="post-card border-bottom">
   <a href="{{ post.url | relative_url }}" class="card-link-wrapper text-decoration-none text-reset">
-    <div class="post-content pe-3">
-      <h5 class="fw-bold mb-1">{{ post.title }}</h5>
-      <p class="mb-2">{{ post.excerpt | strip_html | truncate: 100 }}</p>
-      <small class="d-block mb-1 text-secondary">
-        By {{ post.author | default: "Hyerin Yu" }} · {{ post.date | date: "%b %d %Y" }}
-      </small>
-      <small class="text-muted"><strong>Comments ({{ post.comments | default: 0 }} replies)</strong></small>
+
+    <!-- ① 왼쪽 썸네일 -->
+    <div class="post-thumbnail me-3">
+      {%- assign thumb = post.thumbnail | downcase | strip -%}
+      <img
+        src="{{ thumb == '' or thumb == 'default' ? '/assets/thumbnail/default.png' : post.thumbnail }}"
+        alt="Thumbnail" />
     </div>
-    <div class="post-thumbnail">
-  {%- assign thumb = post.thumbnail | downcase | strip -%}
-  {%- if thumb == '' or thumb == nil or thumb == 'default' -%}
-    <img src="/assets/thumbnail/default.png" alt="Thumbnail" />
-  {%- else -%}
-    <img src="{{ post.thumbnail }}" alt="Thumbnail" />
-  {%- endif -%}
-</div>
+
+    <!-- ② 오른쪽 텍스트 -->
+    <div class="post-content">
+      <h5 class="fw-bold mb-1">{{ post.title }}</h5>
+
+      <!-- 요약 2-3줄 라인-클램프 -->
+      <p class="summary">{{ post.excerpt | strip_html }}</p>
+
+      <!-- 작성자 · 날짜 · 읽기시간 -->
+      <small class="d-block mb-1 text-secondary">
+        By {{ post.author | default: "Hyerin Yu" }} ·
+        {{ post.date | date: "%b %d %Y" }} ·
+        {%- assign w = post.content | strip_html | number_of_words %}
+        {%- assign m = w | plus:199 | divided_by:200 %}
+        {{ m }} min
+      </small>
+
+      <!-- 댓글 수(0이라도 평문) -->
+        <small class="text-muted">
+      <a  class="giscus-count"
+          href="{{ post.url | relative_url }}#giscus-container"
+          data-repo="hyelinyu/hyelinyu.github.io"
+          data-repo-id="R_kgDONvt9Hw"
+          data-category-id="DIC_kwDONvt9H84CrUo5"
+          data-mapping="pathname">
+        <span class="g-count">0</span> Comments
+      </a>
+    </small>
+    </div>
   </a>
 </div>

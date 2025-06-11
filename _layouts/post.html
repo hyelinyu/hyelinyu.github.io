@@ -96,9 +96,22 @@
 
   <!-- 본문: 포스트 내용 -->
   <main class="container my-5">
-    <article class="blog-post">
-      <h1 class="fw-bold">{{ page.title }}</h1>
-      <p class="text-muted">{{ page.date | date: "%B %d, %Y" }}</p>
+  <article class="blog-post">
+
+    <!-- 제목 & 메타 -->
+    <h1 class="fw-bold">{{ page.title }}</h1>
+    <p class="text-muted d-inline">
+      {{ page.date | date: "%B %d, %Y" }}
+    </p>
+    {%- comment -%} ───────── 읽기 시간 (≈ 200 wpm) ───────── {%- endcomment -%}
+    {%- assign words = page.content | strip_html | number_of_words %}
+    {%- assign minutes = words | plus:199 | divided_by:200 %}
+    <span class="text-muted ms-2">{{ minutes }} min read</span>
+
+    <!-- ① 썸네일: 제목 아래, 본문 위 -->
+    {%- if page.thumbnail and page.thumbnail != '' and page.thumbnail != 'default' -%}
+      <img src="{{ page.thumbnail }}" class="img-fluid my-3 rounded" alt="Thumbnail">
+    {%- endif -%}
       {{ content }}
       <hr>
 
