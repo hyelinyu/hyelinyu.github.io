@@ -512,9 +512,7 @@ header .btn-link *,
   text-decoration: none !important;
 }
 
-.post-card {
-  align-items: flex-start;
-}
+
 
 .post-card .thumbnail img {
   width: 100%;
@@ -605,10 +603,13 @@ body.dark-mode .card-link-wrapper:hover {
 .post-content {
   flex: 1;
   min-width: 0;
+  flex-direction: column;
+  justify-content: center;
 }
 .post-content h5 {
-  font-weight: 700;
-  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+  line-height: 1.4;
 }
 .post-content p {
   margin-bottom: 0.5rem;
@@ -625,11 +626,10 @@ body.dark-mode .post-content p {
 }
 /* ─── 요약 2~3줄 라인-클램프 ─── */
 .post-content .summary {
-  display: -webkit-box;
-  -webkit-line-clamp: 2; /* 2줄로 제한 */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: 0.95rem;
+  color: #aaa;
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
 }
 body.dark-mode .post-content .summary { color:#ccc; }
 
@@ -763,3 +763,30 @@ footer {               /* footer는 항상 맨 아래 */
 /* 다크모드 / 라이트모드 색상 */
 body.light-mode .giscus-count { color:#476188; }
 body.dark-mode  .giscus-count { color:#8ab4f8; }
+
+.post-content small {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.post-content .text-muted {
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .post-card {
+    flex-direction: column;
+  }
+
+  .post-thumbnail {
+    width: 100%;
+    height: auto;
+  }
+
+  .post-thumbnail img {
+    height: auto;
+    max-height: 200px;
+  }
+}
