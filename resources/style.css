@@ -487,12 +487,20 @@ body.dark-mode .container {
   padding-top: 0 !important;
   padding-bottom: 0 !important; */
 
-  /* 헤더 테마 토글 버튼(☀/🌙)에 생기는 파란 밑줄 완전 제거 */
+/* 헤더 테마 토글 버튼 및 내부 요소까지 완전 제거 */
 header .btn-link:focus,
 header .btn-link:active,
-header .btn-link:focus-visible {
-  text-decoration: none !important;  /* 밑줄 제거 */
-  box-shadow: none !important;        /* 파란 아웃라인도 제거 */
+header .btn-link:focus-visible,
+header .btn-link *,
+#themeDropdown:focus,
+#themeDropdown:focus-visible,
+#themeDropdown .btn:focus,
+#themeDropdown .btn:focus-visible,
+#themeDropdown .btn-link:focus,
+#themeDropdown .btn-link:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
 }
 
 .post-card {
