@@ -544,7 +544,18 @@ body.dark-mode .post-card small,
 body.dark-mode .post-card .text-muted {
   color: #dcd9d9;
 }
+/* 🔧 다크모드 댓글줄 회색 자연스럽게 보정 */
+body.dark-mode .post-card {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
 
+/* 🔧 다크모드 댓글 수 텍스트 강조 */
+body.dark-mode .post-card .text-muted {
+  color: #999999 !important;
+}
+body.dark-mode .post-card .text-muted strong {
+  color: #cccccc !important;
+}
 
 
 .post-card {
