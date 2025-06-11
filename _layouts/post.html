@@ -100,8 +100,60 @@
       <h1 class="fw-bold">{{ page.title }}</h1>
       <p class="text-muted">{{ page.date | date: "%B %d, %Y" }}</p>
       {{ content }}
+      <div class="comments-section" id="giscus-container"></div>
+
+<script>
+  function loadGiscus(theme) {
+    const giscusContainer = document.getElementById('giscus-container');
+    if (!giscusContainer) return;
+
+    const script = document.createElement('script');
+    script.src = 'https://giscus.app/client.js';
+    script.setAttribute('data-repo', 'hyelinyu/hyelinyu.github.io');
+    script.setAttribute('data-repo-id', 'R_kgDONvt9Hw');
+    script.setAttribute('data-category', 'General');
+    script.setAttribute('data-category-id', 'DIC_kwDONvt9H84CrUo5');
+    script.setAttribute('data-mapping', 'pathname');
+    script.setAttribute('data-strict', '0');
+    script.setAttribute('data-reactions-enabled', '1');
+    script.setAttribute('data-emit-metadata', '0');
+    script.setAttribute('data-input-position', 'bottom');
+    script.setAttribute('data-theme', theme); // ⭐ 테마 자동 설정
+    script.setAttribute('data-lang', 'en');
+    script.setAttribute('crossorigin', 'anonymous');
+    script.async = true;
+
+    giscusContainer.innerHTML = ''; // 기존 댓글 iframe 제거
+    giscusContainer.appendChild(script);
+  }
+
+  // 첫 로딩 시 현재 모드 판단
+  const isDark = document.body.classList.contains('dark-mode');
+  loadGiscus(isDark ? 'gruvbox_dark' : 'gruvbox_light');
+
+  // 모드가 바뀔 때 Giscus 테마도 바꾸기 (body class 감지)
+  const observer = new MutationObserver(() => {
+    const isNowDark = document.body.classList.contains('dark-mode');
+    const iframe = document.querySelector('iframe.giscus-frame');
+    if (iframe) {
+      iframe.contentWindow.postMessage({
+        giscus: {
+          setConfig: {
+            theme: isNowDark ? 'gruvbox_dark' : 'gruvbox_light'
+          }
+        }
+      }, 'https://giscus.app');
+    }
+  });
+
+  observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+</script>
     </article>
   </main>
+
+
+
+
 
   <!-- Footer -->
   <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
