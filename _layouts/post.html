@@ -107,7 +107,7 @@
     {%- assign words = page.content | strip_html | number_of_words %}
     {%- assign minutes = words | plus:199 | divided_by:200 %}
     <span class="text-muted ms-2">{{ minutes }} min read</span>
-
+    <br>
     <!-- ① 썸네일: 제목 아래, 본문 위 -->
     {%- if page.thumbnail and page.thumbnail != '' and page.thumbnail != 'default' -%}
       <img src="{{ page.thumbnail }}" class="img-fluid my-3 rounded" alt="Thumbnail">
