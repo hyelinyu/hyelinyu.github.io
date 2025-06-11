@@ -1,3 +1,6 @@
+{%- assign word_count = post.content | strip_html | number_of_words -%}
+{%- assign minutes = word_count | plus:199 | divided_by:200 -%}
+
 <div class="post-card border-bottom">
   <a href="{{ post.url | relative_url }}" class="card-link-wrapper text-decoration-none text-reset">
     <div class="post-content pe-3">
@@ -6,7 +9,19 @@
       <small class="d-block mb-1 text-secondary">
         By {{ post.author | default: "Hyerin Yu" }} · {{ post.date | date: "%b %d %Y" }}
       </small>
-      <small class="text-muted"><strong>Comments ({{ post.comments | default: 0 }} replies)</strong></small>
+
+      <small class="text-muted">
+  {{ minutes }} min ·
+        <a class="giscus-count"
+          href="{{ post.url | relative_url }}#giscus-container"
+          data-repo="hyelinyu/hyelinyu.github.io"
+          data-repo-id="R_kgDONvt9Hw"
+          data-category-id="DIC_kwDONvt9H84CrUo5"
+          data-mapping="pathname">
+          Comments (<span class="g-count">0</span> replies)
+        </a>
+      </small>
+      
     </div>
     <div class="post-thumbnail">
       <img src="{{ post.thumbnail | default: '/assets/thumbnail/default.png' }}" alt="Thumbnail" />
