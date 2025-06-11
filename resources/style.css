@@ -871,3 +871,8 @@ body.dark-mode .post-card .meta-info-icons {
   font-size: 1.1rem;
   font-weight: 700;
 }
+
+.post-content small {
+  display: block;
+  margin-top: 0.25rem;
+}
