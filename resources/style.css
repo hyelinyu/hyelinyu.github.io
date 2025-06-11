@@ -616,3 +616,19 @@ body.dark-mode .post-content p {
 .giscus-frame {
   margin-top: 2rem;
 }
+
+/* 게시글 마지막 줄과 선 사이 여백 */
+.post-content p:last-of-type {
+  margin-bottom: 2rem;
+}
+
+/* 선(hr) 위아래 여백 명확하게 */
+hr {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* 랜덤 버튼 위쪽 여백 (혹시 버튼이 hr과 붙는 경우) */
+.random-post-button {
+  margin-top: 2rem;
+}
