@@ -517,8 +517,8 @@ header .btn-link *,
 }
 
 .post-card .thumbnail img {
-  width: 100px;
-  height: 70px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   border-radius: 6px;
 }
@@ -570,7 +570,8 @@ body.dark-mode .post-card .text-muted strong {
   padding: 1.2rem 0;
   display: flex;
   justify-content: space-between;
-  gap: 1rem;
+  align-items: flex-start;
+  gap: 1.5rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -603,6 +604,7 @@ body.dark-mode .card-link-wrapper:hover {
 
 .post-content {
   flex: 1;
+  min-width: 0;
 }
 .post-content h5 {
   font-weight: 700;
@@ -617,17 +619,17 @@ body.dark-mode .post-content p {
 }
 
 .post-thumbnail {
-  width: 200px;
   flex-shrink: 0;
+  width: 140px;
+  height: 100px;
 }
 /* ─── 요약 2~3줄 라인-클램프 ─── */
 .post-content .summary {
   display: -webkit-box;
-  -webkit-line-clamp: 3;       /* ← 2로 바꾸면 두 줄만 표시 */
+  -webkit-line-clamp: 2; /* 2줄로 제한 */
   -webkit-box-orient: vertical;
   overflow: hidden;
-  margin-bottom: .5rem;
-  color: #6c757d;
+  text-overflow: ellipsis;
 }
 body.dark-mode .post-content .summary { color:#ccc; }
 

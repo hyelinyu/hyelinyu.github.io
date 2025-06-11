@@ -13,20 +13,11 @@
   </div>
 </div> -->
 
+<div class="post-card border-bottom d-flex justify-content-between align-items-start py-3">
+  <a href="{{ post.url | relative_url }}" class="card-link-wrapper text-decoration-none text-reset d-flex w-100">
 
-<div class="post-card border-bottom">
-  <a href="{{ post.url | relative_url }}" class="card-link-wrapper text-decoration-none text-reset">
-
-    <!-- ① 왼쪽 썸네일 -->
-    <div class="post-thumbnail me-3">
-      {%- assign thumb = post.thumbnail | downcase | strip -%}
-      <img
-        src="{{ thumb == '' or thumb == 'default' ? '/assets/thumbnail/default.png' : post.thumbnail }}"
-        alt="Thumbnail" />
-    </div>
-
-    <!-- ② 오른쪽 텍스트 -->
-    <div class="post-content">
+    <!-- ① 왼쪽 텍스트 -->
+    <div class="post-content flex-grow-1 me-3">
       <h5 class="fw-bold mb-1">{{ post.title }}</h5>
 
       <!-- 요약 2-3줄 라인-클램프 -->
@@ -41,17 +32,27 @@
         {{ m }} min
       </small>
 
-      <!-- 댓글 수(0이라도 평문) -->
-        <small class="text-muted">
-      <a  class="giscus-count"
+      <!-- 댓글 수 -->
+      <small class="text-muted">
+        <a class="giscus-count"
           href="{{ post.url | relative_url }}#giscus-container"
           data-repo="hyelinyu/hyelinyu.github.io"
           data-repo-id="R_kgDONvt9Hw"
           data-category-id="DIC_kwDONvt9H84CrUo5"
           data-mapping="pathname">
-        <span class="g-count">0</span> Comments
-      </a>
-    </small>
+          <span class="g-count">0</span> Comments
+        </a>
+      </small>
     </div>
+
+    <!-- ② 오른쪽 썸네일 -->
+    <div class="post-thumbnail" style="width: 140px; height: 100px; flex-shrink: 0;">
+      {%- assign thumb = post.thumbnail | downcase | strip -%}
+      <img
+        src="{{ thumb == '' or thumb == 'default' ? '/assets/thumbnail/default.png' : post.thumbnail }}"
+        alt="Thumbnail"
+        style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;" />
+    </div>
+
   </a>
 </div>
