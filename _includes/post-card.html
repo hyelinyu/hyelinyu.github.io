@@ -1,38 +1,36 @@
 {%- assign word_count = post.content | strip_html | number_of_words -%}
 {%- assign minutes = word_count | plus:199 | divided_by:200 -%}
+{%- assign thumb = post.thumbnail | downcase | strip -%}
 
 <div class="post-card border-bottom">
   <a href="{{ post.url | relative_url }}" class="card-link-wrapper text-decoration-none text-reset">
-    
-    <!-- 왼쪽 텍스트 -->
-    <div class="post-content">
-      <h5 class="post-title">{{ post.title }}</h5>
-      <p class="summary">{{ post.excerpt | strip_html | truncate: 100 }}</p>
+    <div class="post-content pe-3">
+      <h5 class="fw-bold mb-1">{{ post.title }}</h5>
+      <p class="mb-2">{{ post.excerpt | strip_html | truncate: 100 }}</p>
 
-      <div class="meta-info-icons">
-        <span class="meta-item">
-          <i class="bi bi-calendar me-1"></i>{{ post.date | date: "%b %d" }}
-        </span>
-        <span class="meta-item">
+      <small class="d-block mb-1 text-secondary">
+        By {{ post.author | default: "Hyerin Yu" }} · {{ post.date | date: "%b %d %Y" }}
+      </small>
+
+      <!-- 읽기 시간 + 댓글 수 -->
+      <div class="meta-info-icons d-flex gap-3 text-muted small mt-1">
+        <span>
           <i class="bi bi-clock me-1"></i>{{ minutes }} min
         </span>
-        
-        <span class="meta-item">
+        <span>
           <i class="bi bi-chat-dots me-1"></i>
           <a class="giscus-count" href="{{ post.url | relative_url }}#giscus-container"
-            data-repo="hyelinyu/hyelinyu.github.io"
-            data-repo-id="R_kgDONvt9Hw"
-            data-category-id="DIC_kwDONvt9H84CrUo5"
-            data-mapping="pathname">
-            <span class="g-count">0</span>
+             data-repo="hyelinyu/hyelinyu.github.io"
+             data-repo-id="R_kgDONvt9Hw"
+             data-category-id="DIC_kwDONvt9H84CrUo5"
+             data-mapping="pathname">
+            Comments (<span class="g-count">0</span>)
           </a>
         </span>
       </div>
     </div>
 
-    <!-- 오른쪽 썸네일 -->
     <div class="post-thumbnail">
-      {%- assign thumb = post.thumbnail | downcase | strip -%}
       <img src="{{ thumb == '' or thumb == 'default' ? '/assets/thumbnail/default.png' : post.thumbnail }}" alt="Thumbnail" />
     </div>
   </a>
