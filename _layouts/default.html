@@ -178,31 +178,20 @@
 
   <!-- giscus 댓글 수 로더  -->
 
-    <script>
-  window.addEventListener('DOMContentLoaded', () => {
-    const counts = document.querySelectorAll('.giscus-count');
-
-    if (counts.length === 0) return;
-
-    const origin = 'https://giscus.app';
-    const script = document.createElement('script');
-    script.src = `${origin}/client.js`;
-    script.setAttribute('data-repo', 'hyelinyu/hyelinyu.github.io');
-    script.setAttribute('data-repo-id', 'R_kgDONvt9Hw');
-    script.setAttribute('data-category', 'General');
-    script.setAttribute('data-category-id', 'DIC_kwDONvt9H84CrUo5');
-    script.setAttribute('data-mapping', 'pathname');
-    script.setAttribute('data-strict', '0');
-    script.setAttribute('data-reactions-enabled', '0');
-    script.setAttribute('data-emit-metadata', '0');
-    script.setAttribute('data-input-position', 'bottom');
-    script.setAttribute('data-theme', 'light');  // 또는 'preferred_color_scheme'
-    script.setAttribute('data-lang', 'en');
-    script.setAttribute('crossorigin', 'anonymous');
-    script.setAttribute('async', '');
-    script.setAttribute('data-load-script', 'giscus-count'); // 핵심
-    document.body.appendChild(script);
-  });
-</script>
+    <script src="https://giscus.app/client.js"
+            data-repo="hyelinyu/hyelinyu.github.io"
+            data-repo-id="R_kgDONvt9Hw"
+            data-category="General"
+            data-category-id="DIC_kwDONvt9H84CrUo5"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="preferred_color_scheme"
+            data-lang="en"
+            crossorigin="anonymous"
+            async>
+    </script>
 </body>
 </html>
