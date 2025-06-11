@@ -21,11 +21,10 @@
     <!-- ✅ 댓글 수 (정확히 giscus 연동됨) -->
     <small class="text-muted d-block">
       <strong>
-        <a class="giscus-count text-muted text-decoration-none"
-            href="{{ post.url | relative_url }}#giscus-container"
-              data-giscus-id="{{ post.id }}">
-          Comments (<span class="g-count">0</span>)
-        </a>
+                <a class="giscus-count text-muted text-decoration-none"
+                href="{{ post.url | relative_url }}#giscus-container">
+                Comments (<span class="g-count">0</span>)
+              </a>
       </strong>
     </small>
   </div>
