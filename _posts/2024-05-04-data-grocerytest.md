@@ -6,6 +6,7 @@ categories: [projects]
 author: Hyerin Yu
 excerpt: "This analysis explores trends in a grocery store’s sales data over the past year. We use Python and pandas to clean and summarize data, matplotlib for visualization, and identify key seasonal changes in product performance."
 thumbnail: default
+tag: "Product"
 ---
  
 The standard Lorem Ipsum passage, used since the 1500s
