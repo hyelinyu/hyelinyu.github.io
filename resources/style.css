@@ -863,3 +863,15 @@ body.dark-mode .post-card .meta-info-icons {
 
 /* 실제 글 본문 안의 댓글 컨테이너는 표시 */
 #giscus-container .giscus { display: block !important; }
+
+.tag-outline-neon {
+  display: inline-block;
+  padding: 0.25em 0.6em;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #ff7f00;                 /* 형광 주황 텍스트 */
+
+  background-color: transparent;
+  border-radius: 0.25rem;
+  text-shadow: 0 0 2px #ffae42;   /* 약한 빛나는 효과 */
+}
