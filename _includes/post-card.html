@@ -12,7 +12,7 @@
 
     <!-- 요약 -->
     <p class="summary">{{ post.excerpt | strip_html | truncate: 100 }}</p>
-      <br><br>
+      <br>
     <!-- 작성자 · 날짜 -->
     <small class="d-block text-secondary mb-1">
       By {{ post.author | default: "Hyerin Yu" }} · {{ post.date | date: "%b %d %Y" }}
