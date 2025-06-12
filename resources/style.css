@@ -852,28 +852,9 @@ body.dark-mode .post-card .meta-info-icons {
 .post-card .meta-info-icons .meta-item i {
   margin-right: .3rem;
 }
-.post-content .category {
-  display: block;               /* full-width line */
-  margin-bottom: 0.5rem;        /* breathing room */
-  font-weight: bold;
-  font-size: 0.9rem;
-                /* your accent color */ 
-  white-space: nowrap;          /* prevent it from breaking mid-word */
-}
 
-.post-content .summary {
-  width: 100%;
+.blog-post {
+  max-width: 760px;      /* 원하는 본문 폭 */
+  margin-left: auto;
+  margin-right: auto;
 }
-.post-title {
-  white-space: normal;
-  word-break: break-word;
-  line-height: 1.4;
-  font-size: 1.1rem;
-  font-weight: 700;
-}
-
-.post-content small {
-  display: block;
-  margin-top: 0.25rem;
-}
-
