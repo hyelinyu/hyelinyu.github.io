@@ -18,15 +18,7 @@
       By {{ post.author | default: "Hyerin Yu" }} · {{ post.date | date: "%b %d %Y" }}
     </small>
 
-    <!-- ✅ 댓글 수 (정확히 giscus 연동됨) -->
-    <small class="text-muted d-block">
-      <strong>
-                <a class="giscus-count text-muted text-decoration-none"
-                href="{{ post.url | append: '/' | relative_url }}#giscus-container">
-                Comments (<span class="g-count">0</span>)
-              </a>
-      </strong>
-    </small>
+   
   </div>
 
   <!-- ② 썸네일 오른쪽 -->
