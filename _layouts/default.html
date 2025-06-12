@@ -175,6 +175,19 @@
     });
   </script>
 
- 
+ {% unless page.layout == "post" %}   <!-- 글 목차(=post-card)에서만 로드 -->
+<script src="https://giscus.app/client.js"
+        data-repo="hyelinyu/hyelinyu.github.io"
+        data-repo-id="R_kgDONvt9Hw"
+        data-category="General"
+        data-category-id="DIC_kwDONvt9H84CrUo5"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="0"
+        data-emit-metadata="0"
+        crossorigin="anonymous"
+        async>
+</script>
+{% endunless %}
 </body>
 </html>

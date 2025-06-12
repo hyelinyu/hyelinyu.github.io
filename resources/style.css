@@ -858,3 +858,8 @@ body.dark-mode .post-card .meta-info-icons {
   margin-left: auto;
   margin-right: auto;
 }
+/* 댓글 수용 스크립트가 만들어낸 iframe 숨김 */
+.giscus { display: none !important; }
+
+/* 실제 글 본문 안의 댓글 컨테이너는 표시 */
+#giscus-container .giscus { display: block !important; }
