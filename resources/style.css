@@ -868,4 +868,5 @@ body.dark-mode .post-card .meta-info-icons {
   color: #ff7f00;         /* 형광 주황 */
   font-size: 0.95rem;
   font-weight: 500;
+  font-family: 'Roboto Mono', monospace;
 }
