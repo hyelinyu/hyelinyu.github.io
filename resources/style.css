@@ -622,6 +622,7 @@ body.dark-mode .summary {
 .post-content h5 {
   margin-bottom: 0.4rem;
   font-size: 1.1rem;
+  font-weight: 700;
   line-height: 1.4;
 }
 .post-content p {
@@ -865,8 +866,34 @@ body.dark-mode .post-card .meta-info-icons {
 #giscus-container .giscus { display: block !important; }
 
 .tag-orange {
-  color: #ff7f00;         /* 형광 주황 */
-  font-size: 0.95rem;
-  font-weight: 500;
+  color: #ff7f00;  
+  padding: 2px 8px;       /* 형광 주황 */
+  font-size: 0.85rem;
+  font-weight: 600;
   font-family: 'Roboto Mono', monospace;
+}
+
+.post-card {
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* 추가 */
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.post-card:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12); /* hover 효과 */
+  transform: translateY(-4px);
+}
+
+body.dark-mode .post-card {
+  background-color: #1e1e1e;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+}
+body.dark-mode .post-card:hover {
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.08);
+}
+
+.post-thumbnail img {
+
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
