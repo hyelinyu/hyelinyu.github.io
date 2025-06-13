@@ -884,6 +884,10 @@ body.dark-mode .post-card .meta-info-icons {
   
   margin: 1.5rem 1.2rem;
 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
 }
 
 .post-card:hover {
