@@ -878,6 +878,7 @@ body.dark-mode .post-card .meta-info-icons {
 
 .post-card {
   border-radius: 12px;
+  padding: 1.5rem;
   background-color: #fff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* 추가 */
   transition: box-shadow 0.3s ease, transform 0.2s ease;
