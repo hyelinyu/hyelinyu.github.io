@@ -614,10 +614,12 @@ body.dark-mode .card-link-wrapper:hover {
   color: #6c757d;
   margin-bottom: 0.5rem;
   line-height: 1.5;
+
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 body.dark-mode .summary {
   color: #ccc;
@@ -627,6 +629,9 @@ body.dark-mode .summary {
   font-size: 1.1rem;
   font-weight: 700;
   line-height: 1.4;
+}
+.summary {
+  margin-bottom: 0.5rem;
 }
 .post-content p {
   margin-bottom: 0.5rem;
