@@ -568,7 +568,10 @@ body.dark-mode .post-card .text-muted strong {
   align-items: stretch;
   gap: 1.5rem;
   padding: 1.5rem 0;
+  max-width: 800px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .post-thumbnail { width:120px; flex-shrink:0; }
@@ -899,4 +902,15 @@ body.dark-mode .post-card:hover {
 .post-thumbnail img {
 
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.container {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+@media (min-width: 768px) {
+  .container {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
 }
