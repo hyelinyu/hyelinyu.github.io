@@ -26,34 +26,15 @@
         </h1>
 
         <div class="d-flex align-items-center flex-nowrap" style="gap: 10px;">
-            <div class="dropdown">
+           
                 <button class="btn btn-link dropdown-toggle p-0" type="button" id="themeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                   <i id="currentThemeIcon" class="bi bi-brightness-high-fill header-icon" style="font-size: 1.5rem;"></i>
                 </button>
               
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="themeDropdown">
-                  <li>
-                    <button class="dropdown-item d-flex align-items-center" data-theme="light">
-                      <i class="bi bi-brightness-high me-2 header-icon"></i> Light
-                      <span class="ms-auto theme-indicator" data-theme="light"></span>
-                    </button>
-                  </li>
-                  <li>
-                    <button class="dropdown-item d-flex align-items-center" data-theme="dark">
-                      <i class="bi bi-moon me-2 header-icon"></i> Dark
-                      <span class="ms-auto theme-indicator" data-theme="dark"></span>
-                    </button>
-                  </li>
-                  <li>
-                    <button class="dropdown-item d-flex align-items-center" data-theme="system">
-                      <i class="bi bi-display me-2 header-icon"></i> System
-                      <span class="ms-auto theme-indicator" data-theme="system"></span>
-                    </button>
-                  </li>
-                </ul>
+              
           </div> 
          
-        </div>
+        
       </div>
 
       <nav class="border-top pt-2">
@@ -242,62 +223,38 @@
 
 
   <!-- 다크모드 스크립트 -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Script -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+document.addEventListener("DOMContentLoaded", () => {
   const root = document.documentElement;
-  const themeIcon = document.getElementById('currentThemeIcon');
-  const buttons = document.querySelectorAll('[data-theme]');
-  const indicators = document.querySelectorAll('.theme-indicator');
+  const themeIcon = document.getElementById("currentThemeIcon");
 
-  // 초기 설정
-  const savedTheme = localStorage.getItem('theme') || 'system';
+  // 1️⃣ 저장된 테마 불러오기
+  const savedTheme = localStorage.getItem("theme") || "light";
   applyTheme(savedTheme);
 
-  // 클릭 이벤트
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const selected = btn.getAttribute('data-theme');
-      localStorage.setItem('theme', selected);
-      applyTheme(selected);
-    });
+  // 2️⃣ 버튼 클릭 시 테마 전환
+  themeIcon.addEventListener("click", () => {
+    const current = localStorage.getItem("theme") || "light";
+    const next = current === "dark" ? "light" : "dark";
+    localStorage.setItem("theme", next);
+    applyTheme(next);
   });
 
+  // 3️⃣ 테마 적용 함수
   function applyTheme(mode) {
-    // 모두 제거
-    document.body.classList.remove('dark-mode', 'light-mode');
-    indicators.forEach(i => i.textContent = '');
+    document.body.classList.remove("dark-mode", "light-mode");
 
-    if (mode === 'dark') {
-    document.body.classList.add('dark-mode');
-    document.documentElement.classList.add('dark-mode'); 
-    themeIcon.className = 'bi bi-moon-fill header-icon'; // ✅ FIXED
-  } else if (mode === 'light') {
-    document.body.classList.add('light-mode');
-    document.documentElement.classList.add('light-mode');
-    themeIcon.className = 'bi bi-brightness-high-fill header-icon'; // ✅ FIXED
-  } else {
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    document.body.classList.add(systemPrefersDark ? 'dark-mode' : 'light-mode');
-    themeIcon.className = systemPrefersDark
-      ? 'bi bi-moon-fill header-icon'  // ✅ FIXED
-      : 'bi bi-brightness-high-fill header-icon'; // ✅ FIXED
-  }
-
-
-    // 선택 표시 ●
-    const selectedIndicator = document.querySelector(`.theme-indicator[data-theme="${mode}"]`);
-    if (selectedIndicator) {
-      selectedIndicator.textContent = '●';
+    if (mode === "dark") {
+      document.body.classList.add("dark-mode");
+      themeIcon.className = "bi bi-moon-fill header-icon";
+    } else {
+      document.body.classList.add("light-mode");
+      themeIcon.className = "bi bi-brightness-high-fill header-icon";
     }
   }
-
-  // 시스템 모드 변경 감지 (선택)
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-    if (localStorage.getItem('theme') === 'system') {
-      applyTheme('system');
-    }
-  });
-
+});
 </script>
 <!-- 댓글 수만 불러오는 버전 (💡 중요: 댓글창 절대 안 뜸) -->
 
