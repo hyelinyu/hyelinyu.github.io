@@ -6,7 +6,9 @@
 
 
 /* ───────── Sticky Footer & Giscus 여백 (최종본) ───────── */
-html, body {            /* footer를 바닥에 고정할 flex 레이아웃 */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+html, body {    
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;        /* footer를 바닥에 고정할 flex 레이아웃 */
   min-height: 100vh;
   margin: 0;
   display: flex;
@@ -939,3 +941,14 @@ body.dark-mode .post-card:hover {
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
+/* ───── Final Title Style (Hyerin Yu) ───── */
+@import url('https://fonts.googleapis.com/css2?family=Marcellus&display=swap');
+
+.lynexa-title {
+  font-family: 'Marcellus', serif;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  font-size: 1.8rem;
+  color: #1f0f41 !important;
+  margin: 0;
+}
