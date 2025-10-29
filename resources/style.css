@@ -941,13 +941,24 @@ body.dark-mode .post-card:hover {
 
 
 
-/* ───── Final Title Style (Hyerin Yu) ───── */
-@import url('https://fonts.googleapis.com/css2?family=Marcellus&display=swap');
-.lynexa-title {
+
+/* === FINAL: Site Title (works in both default/post) === */
+header .lynexa-title,
+header .lynexa-title a {
   font-family: 'Marcellus', serif !important;
-  font-weight: 400;
-  letter-spacing: 0.5px;
-  font-size: 1.8rem;
+  font-weight: 700 !important;      /* 두께 ↑ */
+  font-size: 2.6rem !important;     /* 크기 ↑ (원하면 2.4~2.8rem) */
+  line-height: 1.1;
+  letter-spacing: .6px;
   color: #1f0f41 !important;
   margin: 0;
 }
+
+/* 다크모드 색만 분리 */
+body.dark-mode header .lynexa-title,
+body.dark-mode header .lynexa-title a {
+  color: #fff !important;
+}
+
+/* a가 다른 규칙으로 덮이지 않게 아예 상속 고정 */
+header .lynexa-title a { text-decoration: none; color: inherit !important; }
