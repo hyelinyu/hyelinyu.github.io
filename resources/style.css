@@ -962,3 +962,61 @@ body.dark-mode header .lynexa-title a {
 
 /* a가 다른 규칙으로 덮이지 않게 아예 상속 고정 */
 header .lynexa-title a { text-decoration: none; color: inherit !important; }
+
+
+/* ============================= */
+/*   HEADER TYPOGRAPHY OVERRIDES */
+/* ============================= */
+
+
+header .lynexa-title,
+header .lynexa-title a {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font-weight: 700 !important;       /* 두껍게 */
+  font-size: 2.4rem !important;      /* 필요하면 2.2~2.6으로 조절 */
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  color: #000000 !important;         /* 완전 검정 */
+  margin: 0;
+  text-decoration: none;
+}
+
+/* 다크모드에서는 흰색 */
+body.dark-mode header .lynexa-title,
+body.dark-mode header .lynexa-title a {
+  color: #ffffff !important;
+}
+
+/* 이름 아래 선 제거 (네비게이션 위 border-top 없애기) */
+header nav.border-top {
+  border-top: none !important;
+}
+
+/* 네비게이션 텍스트 스타일 */
+header .nav-link {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.9rem;                 /* 살짝 작게 */
+  font-weight: 500;
+  color: #777777 !important;         /* 지금보다 연한 회색 */
+  padding-top: 0.2rem;               /* 위아래 패딩 줄이기 */
+  padding-bottom: 0.2rem;
+}
+
+/* 다크모드 네비 색 */
+body.dark-mode header .nav-link {
+  color: #bbbbbb !important;
+}
+
+/* 활성 탭 (Archive / Projects / Thoughts) */
+header .nav-link.active {
+  font-weight: 600;
+  color: #476188 !important;
+  border-bottom: 2px solid #476188;
+  padding-bottom: 0.1rem;
+}
+
+/* 네비 전체 세로 높이 줄이기 */
+header nav {
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
+}
