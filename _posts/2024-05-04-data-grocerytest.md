@@ -6,7 +6,7 @@ categories: [thoughts]
 author: Hyerin Yu
 excerpt: "단순한 문제는 단순하게"
 thumbnail: /assets/thumbnail/default.png
-tag: "회고"
+tag: "Retrospective"
 ---
  
 단순한 문제를 굳이 복잡하게 풀고 있었다 
