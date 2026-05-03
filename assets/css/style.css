@@ -1,5 +1,5 @@
 /* ============================================================
-   Lynn Y — blog (dark-first, auto light-mode)
+   Lynn Y â€” blog (dark-first, auto light-mode)
    ============================================================ */
 
 :root {
@@ -13,6 +13,7 @@
   --border-strong: rgba(255, 255, 255, 0.15);
   --accent: #6ea8e0;
   --accent-bg: rgba(110, 168, 224, 0.12);
+  --accent-bg-strong: rgba(110, 168, 224, 0.22);
   --shadow-card: 0 0 0 0.5px rgba(255,255,255,0.03);
 
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Pretendard', sans-serif;
@@ -39,6 +40,7 @@
     --border-strong: rgba(0, 0, 0, 0.20);
     --accent: #185fa5;
     --accent-bg: #e6f1fb;
+    --accent-bg-strong: rgba(24, 95, 165, 0.18);
     --shadow-card: 0 0 0 0.5px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.04);
     --avatar-filter: none;
   }
@@ -133,19 +135,55 @@ a { color: inherit; text-decoration: none; }
   font-size: 11px;
   color: var(--text-3);
   letter-spacing: 0.04em;
-  margin-bottom: 10px;
   font-family: var(--font-mono);
 }
+
+/* meta-row: ë‚ ì§œ + ì¹´í…Œê³ ë¦¬ chip */
+.meta-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.cat-chip {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--accent-bg);
+  color: var(--accent);
+  letter-spacing: 0.04em;
+}
+
 .post-title {
   font-family: var(--font-serif);
   font-size: 22px;
   font-weight: 500;
-  line-height: 1.3;
+  line-height: 1.45;
   letter-spacing: -0.01em;
   margin: 0 0 14px;
+  position: relative;
+  padding-left: 14px;
+}
+.post-title::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0.32em; bottom: 0.32em;
+  width: 2px;
+  background: var(--accent);
+  border-radius: 2px;
 }
 .post-title a { color: var(--text); }
 .post-title a:hover { color: var(--accent); }
+.post-title .hl {
+  background-image: linear-gradient(transparent 65%, var(--accent-bg-strong) 65%);
+  background-repeat: no-repeat;
+  padding: 0 3px;
+  margin: 0 -3px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
 
 .post-body {
   font-size: 15px;
