@@ -1,0 +1,55 @@
+---
+layout: default
+---
+
+{% assign cat = page.category %}
+{% assign cat_label = cat %}
+{% for c in site.categories_nav %}
+  {% if c.slug == cat %}{% assign cat_label = c.label %}{% endif %}
+{% endfor %}
+
+<div class="detail">
+  <a class="back" href="{{ '/' | append: cat | append: '/' | relative_url }}">← back to {{ cat_label }}</a>
+
+  <article class="post post-full">
+    <div class="meta-row">
+      <span class="post-date">{{ page.date | date: "%Y.%m.%d" }}</span>
+      <span class="cat-chip">{{ page.category }}</span>
+    </div>
+    {% if page.title and page.title != "" %}
+      <h1 class="post-title"><span class="hl">{{ page.title }}</span></h1>
+    {% endif %}
+    <div class="post-body">
+      {{ content }}
+    </div>
+    {% if page.tags and page.tags.size > 0 %}
+      <div class="post-tags">
+        {% for tag in page.tags %}<span class="tag">#{{ tag }}</span>{% endfor %}
+      </div>
+    {% endif %}
+    <div class="post-foot">
+      <button class="btn react-btn" data-slug="{{ page.url }}">잘 봤어요 <span class="count">0</span></button>
+    </div>
+  </article>
+
+  <section class="comments">
+    <h2 class="comments-h">댓글</h2>
+    <div id="giscus-container"></div>
+  </section>
+</div>
+
+<script src="https://giscus.app/client.js"
+  data-repo="{{ site.giscus.repo }}"
+  data-repo-id="{{ site.giscus.repo_id }}"
+  data-category="{{ site.giscus.category }}"
+  data-category-id="{{ site.giscus.category_id }}"
+  data-mapping="{{ site.giscus.mapping }}"
+  data-strict="0"
+  data-reactions-enabled="{{ site.giscus.reactions_enabled }}"
+  data-emit-metadata="{{ site.giscus.emit_metadata }}"
+  data-input-position="{{ site.giscus.input_position }}"
+  data-theme="{{ site.giscus.theme }}"
+  data-lang="{{ site.giscus.lang }}"
+  crossorigin="anonymous"
+  async>
+</script>
