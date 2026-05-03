@@ -1,4 +1,45 @@
-title: "Hyerin Yu"
-timezone: Asia/Seoul
+title: Lynn Y
+description: 분석 글, 작업 일지, 그리고 가끔 감상문.
+url: "https://hyelinyu.github.io"
+baseurl: ""
+
+# Build
 markdown: kramdown
-permalink: /:year/:month/:day/:title/
+permalink: /:categories/:slug/
+
+# Categories used in nav
+categories_nav:
+  - { slug: da,       label: "DA",       desc: "분석 글" }
+  - { slug: log,      label: "log",      desc: "작업 일지" }
+  - { slug: thoughts, label: "thoughts", desc: "감상문 · 스크랩" }
+
+# Read-more clamp (in lines)
+clamp_lines: 6
+
+# Giscus comments (이 4개는 본인 환경에 맞춰 채워야 함 — 아래 README 참고)
+giscus:
+  repo: hyelinyu/hyelinyu.github.io
+  repo_id: "REPLACE_WITH_REPO_ID"
+  category: "Comments"
+  category_id: "REPLACE_WITH_CATEGORY_ID"
+  mapping: pathname
+  reactions_enabled: 0
+  emit_metadata: 0
+  input_position: bottom
+  theme: preferred_color_scheme
+  lang: ko
+
+# About 페이지 (about.md에서 사용)
+about:
+  name: Lynn Y
+  role: data analyst · IT consultant aspiring
+  email: "your-email@example.com"
+  github: hyelinyu
+  linkedin: "https://www.linkedin.com/in/hyelinyu/"
+
+# Exclude
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor

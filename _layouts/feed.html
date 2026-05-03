@@ -1,0 +1,15 @@
+---
+layout: default
+---
+
+<div class="feed">
+  {% assign cat = page.category %}
+  {% assign posts = site.categories[cat] %}
+  {% if posts.size == 0 %}
+    <div class="empty">아직 글이 없어요.</div>
+  {% else %}
+    {% for post in posts %}
+      {% include post-card.html post=post %}
+    {% endfor %}
+  {% endif %}
+</div>

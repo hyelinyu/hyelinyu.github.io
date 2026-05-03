@@ -1,21 +1,21 @@
-<a href="{{ post.url | relative_url }}" class="text-reset text-decoration-none">
-  <div class="post-card border-bottom d-flex justify-content-between align-items-center py-3">
-
-    <!-- 왼쪽 텍스트 블록 -->
-    <div class="post-content flex-grow-1 me-3">
-      <span class="tag-orange">{{ post.tag }}</span>
-      <h5 class="fw-bold mb-1">{{ post.title }}</h5>
-      <p class="summary">{{ post.excerpt | strip_html | truncate: 100 }}</p>
-      <br>
-      <small class="d-block text-secondary mb-1">
-        {{ post.date | date: "%b %d %Y" }}
-      </small>
+{% assign post = include.post %}
+<article class="post">
+  <div class="post-date">{{ post.date | date: "%Y.%m.%d" }}</div>
+  {% if post.title and post.title != "" %}
+    <h2 class="post-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+  {% endif %}
+  <div class="post-body">
+    <div class="clampable" data-clamp="{{ site.clamp_lines }}">
+      {{ post.content }}
     </div>
-
-    <!-- 썸네일 오른쪽 -->
-    <div class="post-thumbnail">
-      <img src="{{ post.thumbnail | default: '/assets/thumbnail/default.png' }}" alt="Thumbnail" />
-    </div>
-
   </div>
-</a>
+  {% if post.tags and post.tags.size > 0 %}
+    <div class="post-tags">
+      {% for tag in post.tags %}<span class="tag">#{{ tag }}</span>{% endfor %}
+    </div>
+  {% endif %}
+  <div class="post-foot">
+    <button class="btn react-btn" data-slug="{{ post.url }}">잘 봤어요 <span class="count">0</span></button>
+    <a href="{{ post.url | relative_url }}#giscus-container" class="btn comment-btn">댓글</a>
+  </div>
+</article>
