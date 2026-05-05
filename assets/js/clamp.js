@@ -4,7 +4,13 @@
 (function () {
 
   /* ---------- 1. 6줄 클램프 ---------- */
-  document.querySelectorAll('.clampable').forEach(function (el) {
+  function applyClamp(el) {
+    // 이미 처리된 클램프 제거 (재적용 시)
+    el.classList.remove('collapsed');
+    el.style.maxHeight = '';
+    var existingToggle = el.parentNode.querySelector(':scope > .toggle');
+    if (existingToggle) existingToggle.remove();
+
     var limit = parseInt(el.dataset.clamp || '6', 10);
     var lineHeight = parseFloat(getComputedStyle(el).lineHeight);
     if (!lineHeight) return;
@@ -32,17 +38,66 @@
       }
     });
     el.parentNode.insertBefore(btn, el.nextSibling);
+  }
+
+  function reapplyClamps(post) {
+    // 보이는 .clampable에만 적용
+    post.querySelectorAll('.clampable').forEach(function (el) {
+      // 부모 lang-* 가 hidden이면 스킵
+      var langWrap = el.closest('.lang-ko, .lang-en');
+      if (langWrap && langWrap.hidden) {
+        // hidden 상태인 클램프는 정리만
+        el.classList.remove('collapsed');
+        el.style.maxHeight = '';
+        var t = el.parentNode.querySelector(':scope > .toggle');
+        if (t) t.remove();
+        return;
+      }
+      applyClamp(el);
+    });
+  }
+
+  document.querySelectorAll('.clampable').forEach(function (el) {
+    // hidden인 lang 블록은 처음엔 건너뜀
+    var langWrap = el.closest('.lang-ko, .lang-en');
+    if (langWrap && langWrap.hidden) return;
+    applyClamp(el);
   });
 
-  /* ---------- 2. Translate 토글 ---------- */
-  document.querySelectorAll('.translate-toggle').forEach(function (btn) {
-    var body = btn.nextElementSibling;
-    if (!body || !body.classList.contains('translation-body')) return;
-    body.style.display = 'none';
+  /* ---------- 2. Translate 토글 (swap + localStorage) ---------- */
+  var LANG_KEY = 'post_lang_v1';
+  var savedLang = {};
+  try { savedLang = JSON.parse(localStorage.getItem(LANG_KEY) || '{}'); } catch (e) {}
+
+  function applyLang(post, lang) {
+    post.querySelectorAll('.lang-ko').forEach(function (el) {
+      el.hidden = (lang === 'en');
+    });
+    post.querySelectorAll('.lang-en').forEach(function (el) {
+      el.hidden = (lang !== 'en');
+    });
+    var btn = post.querySelector('.translate-toggle');
+    if (btn) btn.textContent = (lang === 'en') ? 'Original' : 'Translate';
+  }
+
+  document.querySelectorAll('article[data-post-key]').forEach(function (post) {
+    var btn = post.querySelector('.translate-toggle');
+    if (!btn) return;  // 번역 없는 글은 토글도 없음
+
+    var key = post.dataset.postKey;
+    var initial = savedLang[key] === 'en' ? 'en' : 'ko';
+    applyLang(post, initial);
+    if (initial === 'en') reapplyClamps(post);  // 초기가 영어면 영어 본문에 클램프 적용
+
     btn.addEventListener('click', function () {
-      var open = body.style.display === 'block';
-      body.style.display = open ? 'none' : 'block';
-      btn.textContent = open ? 'Translate' : 'Original';
+      var current = post.querySelector('.lang-en') && !post.querySelector('.lang-en').hidden ? 'en' : 'ko';
+      var next = current === 'en' ? 'ko' : 'en';
+      applyLang(post, next);
+      savedLang[key] = next;
+      try { localStorage.setItem(LANG_KEY, JSON.stringify(savedLang)); } catch (e) {}
+
+      // clamp 재계산 — 영어 본문 길이가 다르므로
+      reapplyClamps(post);
     });
   });
 

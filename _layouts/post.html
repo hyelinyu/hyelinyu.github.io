@@ -8,19 +8,35 @@ layout: default
   {% if c.slug == cat %}{% assign cat_label = c.label %}{% endif %}
 {% endfor %}
 
+{% assign has_translation = false %}
+{% if page.lang == "ko" and page.translation %}{% assign has_translation = true %}{% endif %}
+
 <div class="detail">
   <a class="back" href="{{ '/' | append: cat | append: '/' | relative_url }}">← back to {{ cat_label }}</a>
 
-  <article class="post post-full">
+  <article class="post post-full" data-post-key="{{ page.url }}">
     <div class="meta-row">
       <span class="post-date">{{ page.date | date: "%Y.%m.%d" }}</span>
       <span class="cat-chip">{{ page.category }}</span>
     </div>
     {% if page.title and page.title != "" %}
-      <h1 class="post-title"><span class="hl">{{ page.title }}</span></h1>
+      <h1 class="post-title">
+        <span class="hl">
+          <span class="lang-ko">{{ page.title }}</span>
+          {% if has_translation %}<span class="lang-en" hidden>{{ page.title_en | default: page.title }}</span>{% endif %}
+        </span>
+      </h1>
     {% endif %}
+
     <div class="post-body">
-      {{ content }}
+      <div class="lang-ko">
+        {{ content }}
+      </div>
+      {% if has_translation %}
+        <div class="lang-en" hidden>
+          {{ page.translation | markdownify }}
+        </div>
+      {% endif %}
     </div>
 
     {% if page.images and page.images.size > 0 %}
@@ -49,11 +65,8 @@ layout: default
       </div>
     {% endif %}
 
-    {% if page.lang == "ko" and page.translation %}
+    {% if has_translation %}
       <button class="translate-toggle" type="button">Translate</button>
-      <div class="translation-body">
-        {{ page.translation | markdownify }}
-      </div>
     {% endif %}
 
     <div class="post-foot">

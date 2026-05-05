@@ -1,18 +1,37 @@
 {% assign post = include.post %}
-<article class="post">
+{% assign has_translation = false %}
+{% if post.lang == "ko" and post.translation %}{% assign has_translation = true %}{% endif %}
+
+<article class="post" data-post-key="{{ post.url }}">
   <div class="meta-row">
     <span class="post-date">{{ post.date | date: "%Y.%m.%d" }}</span>
     <span class="cat-chip">{{ post.category }}</span>
   </div>
 
   {% if post.title and post.title != "" %}
-    <h2 class="post-title"><a href="{{ post.url | relative_url }}"><span class="hl">{{ post.title }}</span></a></h2>
+    <h2 class="post-title">
+      <a href="{{ post.url | relative_url }}">
+        <span class="hl">
+          <span class="lang-ko">{{ post.title }}</span>
+          {% if has_translation %}<span class="lang-en" hidden>{{ post.title_en | default: post.title }}</span>{% endif %}
+        </span>
+      </a>
+    </h2>
   {% endif %}
 
   <div class="post-body">
-    <div class="clampable" data-clamp="{{ site.clamp_lines }}">
-      {{ post.content }}
+    <div class="lang-ko">
+      <div class="clampable" data-clamp="{{ site.clamp_lines }}">
+        {{ post.content }}
+      </div>
     </div>
+    {% if has_translation %}
+      <div class="lang-en" hidden>
+        <div class="clampable" data-clamp="{{ site.clamp_lines }}">
+          {{ post.translation | markdownify }}
+        </div>
+      </div>
+    {% endif %}
   </div>
 
   {% if post.images and post.images.size > 0 %}
@@ -41,11 +60,8 @@
     </div>
   {% endif %}
 
-  {% if post.lang == "ko" and post.translation %}
+  {% if has_translation %}
     <button class="translate-toggle" type="button">Translate</button>
-    <div class="translation-body">
-      {{ post.translation | markdownify }}
-    </div>
   {% endif %}
 
   <div class="post-foot">
