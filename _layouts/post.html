@@ -22,11 +22,40 @@ layout: default
     <div class="post-body">
       {{ content }}
     </div>
+
+    {% if page.images and page.images.size > 0 %}
+      <div class="post-media">
+        {% if page.images.size == 1 %}
+          <img src="{{ page.images[0] | relative_url }}" alt="">
+        {% else %}
+          <div class="post-slides">
+            <div class="slides-track">
+              {% for img in page.images %}
+                <div><img src="{{ img | relative_url }}" alt=""></div>
+              {% endfor %}
+            </div>
+            <button class="slide-arrow prev" aria-label="prev">‹</button>
+            <button class="slide-arrow next" aria-label="next">›</button>
+            <div class="slide-counter">1 / {{ page.images.size }}</div>
+            <div class="slide-dots"></div>
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
     {% if page.tags and page.tags.size > 0 %}
       <div class="post-tags">
         {% for tag in page.tags %}<span class="tag">#{{ tag }}</span>{% endfor %}
       </div>
     {% endif %}
+
+    {% if page.lang == "ko" and page.translation %}
+      <button class="translate-toggle" type="button">Translate</button>
+      <div class="translation-body">
+        {{ page.translation | markdownify }}
+      </div>
+    {% endif %}
+
     <div class="post-foot">
       <button class="btn react-btn" data-slug="{{ page.url }}">Loved it <span class="count">0</span></button>
     </div>

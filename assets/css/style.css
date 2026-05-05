@@ -1,5 +1,5 @@
 /* ============================================================
-   Lynn Y â€” blog (dark-first, auto light-mode)
+   Lynn Y — blog (dark-first, auto light-mode)
    ============================================================ */
 
 :root {
@@ -138,7 +138,7 @@ a { color: inherit; text-decoration: none; }
   font-family: var(--font-mono);
 }
 
-/* meta-row: ë‚ ì§œ + ì¹´í…Œê³ ë¦¬ chip */
+/* meta-row: 날짜 + 카테고리 chip */
 .meta-row {
   display: flex;
   align-items: center;
@@ -393,4 +393,129 @@ a { color: inherit; text-decoration: none; }
   .post-full .post-title { font-size: 23px; }
   .post-body { font-size: 14.5px; }
   .nav-inner { gap: 22px; }
+}
+
+/* ============================================================
+   post-media — 이미지 / 슬라이드쇼 (1:1, max 360px)
+   ============================================================ */
+.post-media {
+  margin: 14px 0 4px;
+  max-width: 360px;
+  aspect-ratio: 1 / 1;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  background: #0a0a0a;
+}
+.post-media > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* slideshow */
+.post-slides { width: 100%; height: 100%; position: relative; }
+.slides-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease;
+}
+.slides-track > div {
+  flex: 0 0 100%;
+  height: 100%;
+  background: #0a0a0a;
+}
+.slides-track > div > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.slide-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.55);
+  border: none;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  font-family: inherit;
+}
+.slide-arrow:hover { background: rgba(0, 0, 0, 0.75); }
+.slide-arrow:disabled { opacity: 0.3; cursor: default; }
+.slide-arrow.prev { left: 10px; }
+.slide-arrow.next { right: 10px; }
+.slide-counter {
+  position: absolute;
+  top: 10px; right: 10px;
+  background: rgba(0, 0, 0, 0.55);
+  color: white;
+  font-size: 10px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  z-index: 2;
+}
+.slide-dots {
+  position: absolute;
+  bottom: 10px; left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 5px;
+  z-index: 2;
+}
+.slide-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+}
+.slide-dot.active { background: white; }
+
+/* ============================================================
+   translate toggle — 박스 없음, 해시태그 아래
+   ============================================================ */
+.translate-toggle {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--text-2);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+}
+.translate-toggle:hover { color: var(--text); }
+
+.translation-body {
+  display: none;
+  margin-top: 10px;
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: var(--text-2);
+}
+.translation-body p { margin: 0 0 10px; }
+.translation-body p:last-child { margin-bottom: 0; }
+.translation-body code {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  background: var(--surface-2);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* 모바일에서 이미지 더 작게 */
+@media (max-width: 480px) {
+  .post-media { max-width: 100%; }
 }
