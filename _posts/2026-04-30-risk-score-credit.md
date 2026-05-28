@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "_risk_score가 churn risk가 아니라 credit risk였다"
+title: "test_risk_score가 churn risk가 아니라 credit risk였다"
 title_en: "The _risk_score column was credit risk, not churn risk"
 date: 2026-04-30
 category: da
