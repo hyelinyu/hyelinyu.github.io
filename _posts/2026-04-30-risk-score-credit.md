@@ -7,6 +7,118 @@ category: log
 tags: [bigquery, e-commerce, low conversion]
 lang: ko
 translation: |
+After defining the project’s overall goal and direction, we decided to begin by independently exploring the raw dataset.
+
+The purpose of this stage was to understand the dataset’s size, time range, missing values, event distribution, and duplicate records before starting the conversion analysis. We also wanted to establish clear rules for handling the data throughout the project.
+
+## What We Did
+
+The dataset contains approximately 411 million e-commerce event records collected over 213 days, from October 2019 to April 2020.
+
+We first examined the dataset’s size, date coverage, event distribution, missing values, and duplicate records. We then reviewed the relationship between sessions and users and investigated sessions and users with unusually high event volumes.
+
+The main areas we reviewed were:
+
+- Overall date range and missing dates
+- Distribution of `view`, `cart`, and `purchase` events
+- Missing-value rates across key columns
+- Whether a single session was associated with multiple users
+- Possible reasons for repeated event records
+- Distribution of events per session and sessions per user
+- Sessions and users generating unusually large numbers of events
+- Monthly changes in data distribution and missing-value rates
+
+My teammate also suggested several directions for later analysis, including monthly patterns, unusual prices, price changes for the same product, and users who repeatedly viewed products without making a purchase.
+
+## Key Findings
+
+### 1. The overall data structure was stable
+
+The dataset covered all 213 days without any missing dates. The event distribution was:
+
+- `view`: 93.7%
+- `cart`: 4.6%
+- `purchase`: 1.7%
+
+This followed a typical e-commerce funnel pattern, with many product views and progressively fewer cart and purchase events.
+
+Key columns such as event time, event type, product ID, and user ID had almost no missing values. Overall, the raw data appeared stable enough to support further analysis.
+
+### 2. Category information required separate handling
+
+Approximately 15.83% of `category_code` values were missing, while 13.52% of `brand` values were also unavailable.
+
+The missing `category_code` values were particularly important because category information would be required for category-level conversion analysis. Removing all affected records would result in a substantial loss of data, so we decided to investigate whether the missing values could be recovered using `category_id`.
+
+The missing rate was also not consistent across the entire period. It was approximately 32% in October and November 2019, but decreased to around 9–10% in the following months.
+
+This time-based pattern was not visible when looking only at the overall missing-value rate.
+
+### 3. Funnel events and quantities required different aggregation methods
+
+The duplicate rate for `view` events was only 0.097%. However, repeated records were more common for `cart` and `purchase` events with the same timestamp, product, and session.
+
+These repeated records were not necessarily data errors. They could represent a customer adding multiple units of the same product to the cart or purchasing more than one unit. Removing all duplicates could therefore remove valid quantity and revenue information.
+
+On the other hand, counting every repeated event in the conversion funnel could distort CVR when the same product was viewed or added to the cart multiple times within a session.
+
+We therefore decided to use different aggregation rules depending on the metric:
+
+- Funnel and CVR: count once per `session × product`
+- Quantity and revenue: retain repeated events
+- Extreme repetitions: separate them from normal quantities for further investigation
+
+### 4. Sessions could be used as the main funnel-analysis unit
+
+Of approximately 89.7 million sessions, 99.992% were associated with exactly one user.
+
+A small number of sessions were connected to multiple users, but their share of the total was negligible. Based on this result, we decided to use `user_session` as the primary unit for the funnel analysis.
+
+### 5. Abnormal traffic was hidden behind the averages
+
+The median number of events per session was 2, and even the 99th percentile was only 34. However, the largest session contained 34,570 events.
+
+This created a difference of approximately 1,000 times between the normal upper range and the maximum value.
+
+We identified 374 sessions with at least 500 events. Together, they generated 759,903 events, representing only about 0.185% of the entire dataset. Removing these sessions would therefore result in minimal data loss.
+
+We also discovered that events per session alone could not detect every form of abnormal traffic.
+
+Some users avoided generating many events within a single session. Instead, they created tens of thousands of sessions and recorded only one event in each. The 99th percentile for sessions per user was 56, while the maximum was 130,669.
+
+This indicated that abnormal traffic could appear in several different forms:
+
+- Concentrating tens of thousands of events in one session
+- Splitting activity across many one-event sessions
+- Repeatedly monitoring a small number of products
+- Repeating the same actions within a very short period
+
+At this stage, we decided to separate clearly abnormal high-volume sessions first. Users focused on specific products and users generating repeated views would require additional validation because their behavior could still represent genuine customer interest.
+
+## Outputs
+
+This exploration helped us establish the rules that would guide the rest of the analysis, rather than simply confirming whether the dataset was usable.
+
+1. Use `user_session` as the main unit for funnel analysis.
+2. Deduplicate funnel and CVR events at the `session × product` level.
+3. Retain repeated events when calculating quantities and revenue.
+4. Do not immediately remove missing `category_code` records; first investigate whether they can be recovered using `category_id`.
+5. Separate the 374 sessions with at least 500 events as clear abnormal-traffic candidates.
+6. Introduce user-level detection for users with unusually large numbers of sessions or strong concentration on a small number of products.
+7. Examine monthly distributions and extreme values instead of relying only on overall averages.
+
+The most important output from this stage was not a cleaned table itself, but a set of **data-handling principles designed to prevent distortion in the conversion analysis**.
+
+## What I Learned
+
+While sharing our findings, I realized that different people naturally focus on different aspects of the same dataset.
+
+I focused mainly on the dataset’s overall structure and quality, while my teammate examined areas I had not initially considered, such as monthly changes, product prices, and user behavior.
+
+In particular, some issues became much clearer only after the data was divided by month. The overall missing rate for `category_code` was 15.83%, but it was approximately 32% in October and November 2019.
+
+These checks may seem basic, but examining the data from several different perspectives led to new questions that were not visible in the overall summary.
+
 ---
 
 
