@@ -1,0 +1,413 @@
+---
+layout: post
+title: "E-commerce Low Conversion Automation project Log - 3. Bot detection and removal"
+title_en: "E-commerce Low Conversion Automation project Log - 3. Bot detection and removal"
+date: 2026-06-13
+category: log
+tags: [bigquery, e-commerce, bot detection, conversion rate]
+lang: ko
+translation: |
+
+      Bot-like activity was identified during the first stage of EDA, and it was addressed in this stage.
+      
+      However, bot filtering was not treated as the main focus of the analysis. After reviewing how bot traffic is handled in practice, I found that the logs did not contain many of the signals typically required for reliable bot identification. Moreover, attempting to eliminate all possible bot activity would introduce a significant risk of false positives.
+      
+      Therefore, only patterns that could be considered clearly abnormal were removed.
+      
+      ## Work Performed
+      
+      To detect bot traffic, I first examined the number of events per session. However, a single criterion was not sufficient to identify bots with different behavioral patterns. I therefore expanded the analysis to include the number of sessions per user and the number of events generated per second.
+      
+      Ultimately, abnormal traffic was detected from the following three perspectives:
+      
+      1. How many events occurred within a single session?
+      2. How many sessions did a single user create?
+      3. How many events did a single user generate within one second?
+      
+      After examining the distributions and extreme values of each metric, I reviewed the actual behavior of individual users and sessions. Only patterns that were clearly distinguishable from normal user behavior were confirmed for removal.
+      
+      ## Key Findings
+      
+      ### 1. Users Concentrating Events Within a Single Session
+      
+      The median number of events in a typical session was 2, and even the 99th percentile was only 34. In contrast, the session with the highest activity contained 34,570 events.
+      
+      ```text
+      p50: 2 events
+      p99: 34 events
+      max: 34,570 events
+      ```
+      
+      The maximum was approximately 1,000 times greater than the 99th-percentile threshold. Generating tens of thousands of events during a single visit was considered highly unlikely to represent normal user behavior.
+      
+      Based on this observation, sessions containing 500 or more events were defined as Type A.
+      
+      ```text
+      Type A: Events per session ≥ 500
+      ```
+      
+      A total of 373 sessions in the preprocessed dataset met this criterion.
+      
+      For Type A, only the problematic sessions were removed rather than all activity associated with the user. If the same user had multiple sessions, only some of those sessions might have been abnormal.
+      
+      ```text
+      Normal session → Retained
+      Session containing 500 or more events → Only that session removed
+      ```
+      
+      ### 2. Users Distributing Activity Across Many Sessions
+      
+      Examining events per session can detect bots that generate a large number of events within a single session. However, some users did not concentrate events in one session. Instead, they created tens of thousands of sessions, leaving only one or two events in each.
+      
+      The 99th percentile for sessions per user was 56, while the maximum was 130,669.
+      
+      ```text
+      p99: 56 sessions per user
+      max: 130,669 sessions per user
+      ```
+      
+      Because these users generated very few events per session, they could not be detected using the Type A criterion. This pattern was defined as Type B.
+      
+      ```text
+      Type B
+      - Number of sessions per user ≥ 1,000
+      - Average events per session ≤ 2.0
+      - Purchase events = 0
+      ```
+      
+      Initially, I considered setting the average-events-per-session threshold at 1.5 or lower. However, during the review of actual user behavior, I found a clear automated pattern with an average of 1.52 events per session. To prevent such users from being excluded due to a narrow cutoff, the threshold was adjusted to 2.0 or lower.
+      
+      Some users had an unusually large number of sessions and very few events per session but also had actual purchase records.
+      
+      For example, one user created 21,495 sessions and generated an average of 1.12 events per session while also recording 413 purchases.
+      
+      Although this behavior appeared abnormal, removing the user entirely would also eliminate legitimate purchase data. Given that the objective of this project is to analyze purchase conversion rates, users with at least one purchase were excluded from Type B.
+      
+      Ultimately, 283 users who created an abnormally large number of sessions without making any purchases were classified as Type B, and all events associated with those users were removed.
+      
+      ### 3. Users With Low Overall Activity but Abnormally High Speed
+      
+      After examining activity volume at the session and user levels, I analyzed how many events the same user generated within a single second.
+      
+      Even at the 99th percentile, a typical user’s maximum number of events within one second was 3. The overall maximum, however, was 267.
+      
+      ```text
+      p99: 3 events per second
+      max: 267 events per second
+      ```
+      
+      This analysis revealed another type of bot that was not detected by either Type A or Type B.
+      
+      One representative user exhibited the following behavior:
+      
+      ```text
+      Total events: 474
+      Number of sessions: 3
+      Maximum events in one second: 257
+      ```
+      
+      Because the user generated fewer than 500 total events, the activity did not meet the Type A criterion. The user also had fewer than 1,000 sessions and therefore did not meet the Type B criterion. However, it is virtually impossible for a human user to generate 257 events within a single second.
+      
+      This pattern was defined as Type E.
+      
+      ```text
+      Type E: Maximum events per second per user ≥ 50
+      ```
+      
+      Because timestamps were recorded only to the second rather than the millisecond, two or three events occurring within the same second could not reliably distinguish normal behavior from system duplication. Therefore, a deliberately conservative threshold of 50 or more events was selected to ensure a sufficiently large separation from normal user behavior.
+      
+      A total of 303 users met the Type E criterion.
+      
+      For Type E, all events associated with the user were removed rather than only those from a specific session. Users with purchase records were not exempted. Type B was based on indirect behavioral patterns, whereas Type E relied on event speed itself, which was considered direct evidence of automation because it would be extremely difficult for a human to reproduce.
+      
+      ## Final Bot Detection and Removal Criteria
+      
+      The final bot detection and removal criteria were as follows:
+      
+      | Type | Detection Criteria | Removal Unit | Detection Result |
+      |---|---|---|---:|
+      | A. Session burst | Events per session ≥ 500 | Affected session | 373 sessions |
+      | B. Session distribution | Sessions ≥ 1,000, average events per session ≤ 2.0, and 0 purchases | Entire user | 283 users |
+      | E. Abnormal speed | Maximum events per second ≥ 50 | Entire user | 303 users |
+      
+      For Type A, only the sessions in which abnormal activity occurred were removed. For Types B and E, the users were classified as automated, and all events associated with those users were removed.
+      
+      ## A Single Criterion Was Not Sufficient to Detect Every Type of Bot
+      
+      The overlap among the three bot types was examined, with the following results:
+      
+      ```text
+      Overlap between A and B: 31 users
+      Overlap between A and E: 0 users
+      Overlap between B and E: 1 user
+      ```
+      
+      In particular, there were no overlapping users between Types A and E. This indicates that events per session and events per second detect different forms of abnormal behavior.
+      
+      ```text
+      A: Users generating many events within a single session
+      B: Users distributing their activity across many sessions
+      E: Users with low overall activity but extremely high activity speed
+      ```
+      
+      Initially, I assumed that removing only sessions with an excessive number of events would be sufficient. However, bots appeared in multiple forms: some distributed their activity across many sessions, while others generated a relatively small number of events within an extremely short period.
+      
+      Therefore, bot traffic detection should consider not only overall activity volume but also session-creation patterns and the temporal density of events.
+      
+      ## Patterns Not Removed
+      
+      Not every suspicious pattern was classified for removal. When there was a reasonable possibility of normal user behavior—or when the available data was insufficient to confirm automation—removal was deferred.
+      
+      ### Users Whose Activity Was Concentrated on a Single Product
+      
+      Among highly active users, 1,309 concentrated at least 90% of their total events on a single product.
+      
+      Although these users may have been operating price-monitoring bots, they may also have been genuinely interested in a particular product. Furthermore, this behavior could itself represent a meaningful low-conversion signal: a product that receives many views but does not lead to purchases.
+      
+      Because removing these users could eliminate both legitimate users and signals relevant to the analysis, this pattern was not included in the bot-removal criteria.
+      
+      ### Repeated Views Within the Same Second
+      
+      There were also cases in which the same product received repeated `view` events within the same second.
+      
+      However, because the source data provided timestamps only to the second rather than the millisecond, it was difficult to distinguish among user behavior, ETL duplication, and automated traffic.
+      
+      During preprocessing, exact duplicate `view` events occurring within the same session, for the same product, and in the same second were removed. However, this pattern was not expanded into a criterion for removing the user’s entire activity.
+      
+      ### Redefining Sessions Using a 30-Minute Inactivity Threshold
+      
+      Some sessions remained active for unusually long periods, so I also considered redefining sessions using a 30-minute inactivity threshold.
+      
+      However, the current funnel analysis counts each `session × product` combination only once. Therefore, session boundaries were expected to have only a limited effect on CVR. This approach was deferred until more detailed behavioral analysis—such as event sequencing or time spent within a session—is required.
+      
+      ## Removal Results
+      
+      The dataset size before and after bot removal was as follows:
+      
+      | Category | Before Removal | After Removal |
+      |---|---:|---:|
+      | Events | 411,334,643 | 408,543,711 |
+      | Users | 15,639,472 | 15,638,737 |
+      | Sessions | 89,700,347 | 88,180,110 |
+      
+      A total of 2,790,932 events were removed.
+      
+      ```text
+      Percentage of events removed: 0.68%
+      ```
+      
+      Less than 1% of the full dataset was removed, consisting only of abnormal traffic that was clearly distinguishable from normal user behavior.
+      
+      The overall purchase conversion rate was also compared before and after bot removal.
+      
+      ```text
+      CVR before removal: 1.7772%
+      CVR after removal: 1.7812%
+      Change: +0.0040 percentage points
+      ```
+      
+      The change in the overall average CVR was minimal.
+---
+
+EDA 첫 단계에서 Bot으로 보이는 로그 정황이 드러났고 이에 대해 이번 단계에서 처리했다. 
+
+하지만, 여기에서 힘을 빼지는 않았다. 실무에서 봇을 어떻게 다루는지 찾아보고 분석에 들어갔는데 일단 판별에 필요한 신호가 로그에 없고, 
+완전 차단 또한 목표로 하면 오탐의 위험 등이 있기 때문이다. 
+
+그래서 명백하다고 할 수 있는 기준으로만 처리를 했다. 
+
+## 진행한 작업
+
+봇 트래픽을 탐지하기 위해 먼저 세션당 이벤트 수를 확인했다. 그러나 하나의 기준만으로는 서로 다른 형태의 봇을 모두 찾기 어려웠다. 이에 분석 범위를 사용자별 세션 수와 초당 이벤트 수까지 확장했다.
+
+최종적으로 다음 세 가지 관점에서 비정상 트래픽을 탐지했다.
+
+1. 한 세션에서 얼마나 많은 이벤트가 발생했는가
+2. 한 사용자가 얼마나 많은 세션을 생성했는가
+3. 한 사용자가 1초 동안 얼마나 많은 이벤트를 발생시켰는가
+
+각 지표의 분포와 극단값을 확인한 뒤 개별 사용자와 세션의 실제 행동을 검토했다. 그중 정상 사용자와 명확하게 구분되는 패턴만 제거 대상으로 확정했다.
+
+## 주요 발견
+
+### 1. 한 세션에 이벤트를 집중시키는 유형
+
+일반적인 세션의 이벤트 수 중앙값은 2개였으며, 상위 1% 기준도 34개에 불과했다. 반면 이벤트가 가장 많은 세션에는 34,570개의 이벤트가 존재했다.
+
+```text
+p50: 2개
+p99: 34개
+max: 34,570개
+```
+
+상위 1% 기준과 최대값 사이에는 약 1,000배의 차이가 있었다. 한 번의 방문에서 수만 건의 이벤트를 발생시키는 행동은 정상적인 사용자 행동으로 보기 어렵다고 판단했다.
+
+이에 한 세션에서 500개 이상의 이벤트가 발생한 경우를 유형 A로 정의했다.
+
+```text
+유형 A: 세션당 이벤트 수 ≥ 500
+```
+
+전처리된 데이터에서는 총 373개 세션이 이 기준에 해당했다.
+
+유형 A는 사용자 전체가 아니라 문제가 발생한 세션만 제거했다. 동일한 사용자가 여러 세션을 보유한 경우, 일부 세션만 비정상적일 가능성이 있기 때문이다.
+
+```text
+정상 세션 → 유지
+이벤트가 500개 이상 발생한 세션 → 해당 세션만 제거
+```
+
+### 2. 활동을 여러 세션으로 분산하는 유형
+
+세션당 이벤트 수만 확인하면 하나의 세션에서 많은 이벤트를 발생시키는 봇은 탐지할 수 있다. 그러나 일부 사용자는 이벤트를 한 세션에 집중시키지 않고, 수만 개의 세션을 생성해 각 세션에 한두 개의 이벤트만 남겼다.
+
+사용자당 세션 수의 상위 1%는 56개였지만, 최대값은 130,669개였다.
+
+```text
+p99: 사용자당 56개 세션
+max: 사용자당 130,669개 세션
+```
+
+이러한 패턴은 세션당 이벤트 수가 적기 때문에 유형 A 기준으로는 탐지되지 않는다. 이를 유형 B로 정의했다.
+
+```text
+유형 B
+- 사용자 세션 수 ≥ 1,000
+- 세션당 평균 이벤트 수 ≤ 2.0
+- 구매 이벤트 = 0
+```
+
+초기에는 세션당 평균 이벤트 기준으로 1.5 이하를 고려했다. 그러나 실제 데이터를 검토하는 과정에서 평균 이벤트 수가 1.52인 명백한 자동화 패턴이 발견됐다. 경계값에 따라 이러한 사용자가 누락되지 않도록 기준을 2.0 이하로 조정했다.
+
+다만 세션 수가 매우 많고 세션당 이벤트 수가 적더라도 실제 구매 기록이 존재하는 사용자도 있었다.
+
+예를 들어 한 사용자는 21,495개의 세션을 생성하고 세션당 평균 1.12개의 이벤트를 남겼지만, 동시에 413건의 구매 기록을 보유하고 있었다.
+
+행동 패턴은 비정상적으로 보이지만 사용자를 통째로 제거하면 실제 구매 데이터까지 함께 사라진다. 이 프로젝트의 목적이 구매 전환율 분석이라는 점을 고려해, 구매가 한 번이라도 발생한 사용자는 유형 B에서 제외했다.
+
+최종적으로 구매 없이 비정상적으로 많은 세션을 생성한 사용자 283명을 유형 B로 분류하고, 이들의 전체 이벤트를 제거했다.
+
+### 3. 활동량은 적지만 속도가 비정상적인 유형
+
+세션 및 사용자 단위의 활동량을 확인한 뒤에는 동일한 사용자가 1초 동안 발생시킨 이벤트 수도 분석했다.
+
+일반 사용자의 1초 최대 이벤트 수는 상위 1%에서도 3개였지만, 전체 최대값은 267개였다.
+
+```text
+p99: 1초에 3개
+max: 1초에 267개
+```
+
+이 과정에서 유형 A와 B가 모두 탐지하지 못하는 새로운 형태의 봇을 발견했다.
+
+대표적인 사용자의 활동은 다음과 같았다.
+
+```text
+전체 이벤트: 474개
+세션 수: 3개
+1초 최대 이벤트: 257개
+```
+
+전체 이벤트 수가 500개 미만이므로 유형 A에 해당하지 않고, 세션 수도 1,000개 미만이므로 유형 B에도 해당하지 않는다. 그러나 사람이 1초에 257개의 이벤트를 발생시키는 것은 사실상 불가능에 가깝다.
+
+이를 유형 E로 정의했다.
+
+```text
+유형 E: 사용자의 1초 최대 이벤트 수 ≥ 50
+```
+
+데이터의 시간 정보가 밀리초가 아닌 초 단위까지만 제공되기 때문에, 같은 초에 발생한 2~3개의 이벤트만으로는 정상 행동과 시스템 중복을 구분하기 어렵다. 따라서 정상 사용자와 차이가 충분히 큰 50개 이상을 제거 기준으로 설정했다.
+
+총 303명이 유형 E에 해당했다.
+
+유형 E는 특정 세션이 아니라 사용자의 전체 이벤트를 제거했다. 구매 기록이 있는 사용자도 예외로 두지 않았다. 유형 B는 간접적인 행동 패턴을 근거로 판단하지만, 유형 E는 사람이 발생시키기 어려운 이벤트 속도 자체를 직접적인 자동화 증거로 보았기 때문이다.
+
+## 최종 봇 제거 기준
+
+최종적으로 적용한 봇 탐지 및 제거 기준은 다음과 같다.
+
+| 유형 | 탐지 기준 | 제거 단위 | 탐지 결과 |
+|---|---|---|---:|
+| A. 세션 폭주 | 세션당 이벤트 수 ≥ 500 | 해당 세션 | 373개 세션 |
+| B. 세션 분산 | 세션 수 ≥ 1,000, 세션당 평균 이벤트 수 ≤ 2.0, 구매 0건 | 사용자 전체 | 283명 |
+| E. 속도 이상 | 1초 최대 이벤트 수 ≥ 50 | 사용자 전체 | 303명 |
+
+유형 A는 비정상 활동이 발생한 세션만 제거했다. 반면 유형 B와 E는 자동화된 사용자로 판단해 해당 사용자의 전체 이벤트를 제거했다.
+
+## 하나의 기준만으로는 모든 봇을 탐지할 수 없었다
+
+세 가지 유형 사이의 중복 여부를 확인한 결과는 다음과 같았다.
+
+```text
+A와 B 중복: 31명
+A와 E 중복: 0명
+B와 E 중복: 1명
+```
+
+특히 유형 A와 E 사이에는 중복 사용자가 한 명도 없었다. 이는 세션당 이벤트 수와 초당 이벤트 수가 서로 다른 형태의 비정상 행동을 탐지한다는 의미다.
+
+```text
+A: 한 세션에서 많은 이벤트를 발생시키는 유형
+B: 활동을 다수의 세션으로 분산하는 유형
+E: 전체 활동량은 적지만 매우 빠르게 활동하는 유형
+```
+
+처음에는 이벤트가 지나치게 많은 세션만 제거하면 된다고 생각했다. 그러나 봇은 활동을 여러 세션으로 분산하거나, 적은 이벤트를 매우 짧은 시간에 발생시키는 등 서로 다른 형태로 나타났다.
+
+따라서 봇 트래픽을 탐지할 때는 단순한 활동량뿐 아니라 세션 생성 방식과 이벤트의 시간 밀도를 함께 확인해야 한다.
+
+## 제거를 보류한 유형
+
+의심되는 패턴이라고 해서 모두 제거 대상으로 분류하지는 않았다. 정상 사용자일 가능성이 있거나 현재 데이터만으로 자동화 여부를 확정하기 어려운 경우에는 제거를 보류했다.
+
+### 단일 상품에 활동이 집중된 사용자
+
+활동량이 많은 사용자 가운데 1,309명은 전체 이벤트의 90% 이상을 하나의 상품에 집중하고 있었다.
+
+가격 모니터링 봇일 가능성이 있지만, 실제로 특정 상품에 관심이 많았던 사용자일 수도 있다. 또한 이러한 행동은 ‘많이 조회됐지만 구매로 이어지지 않은 상품’이라는 low-conversion 신호 자체일 수 있다.
+
+정상 사용자와 분석에 필요한 신호를 함께 제거할 위험이 있어 이번 봇 제거 기준에는 포함하지 않았다.
+
+### 같은 초에 반복된 조회
+
+동일한 초에 같은 상품의 `view` 이벤트가 반복되는 사례도 확인했다.
+
+다만 원본 데이터가 밀리초가 아닌 초 단위의 시간 정보만 제공하기 때문에 사용자 행동, ETL 중복, 자동화 트래픽을 정확하게 구분하기 어려웠다.
+
+전처리 단계에서는 동일한 세션·상품·초에 발생한 완전 중복 `view`를 정리했지만, 이를 사용자 전체를 제거하는 기준으로 확대하지는 않았다.
+
+### 30분 비활동 기준의 세션 재정의
+
+일부 세션이 비정상적으로 오랜 기간 유지되고 있어, 30분 비활동 기준으로 세션을 다시 나누는 방법도 검토했다.
+
+하지만 현재 퍼널 분석은 `session × product` 조합을 한 번만 집계하는 구조이므로, 세션 경계가 CVR에 미치는 영향은 제한적이라고 판단했다. 세션 내 행동 순서나 체류 시간 등 정밀한 행동 분석이 필요할 때 다시 적용하기로 했다.
+
+## 제거 결과
+
+봇 제거 전후의 데이터 규모는 다음과 같다.
+
+| 구분 | 제거 전 | 제거 후 |
+|---|---:|---:|
+| 이벤트 | 411,334,643 | 408,543,711 |
+| 사용자 | 15,639,472 | 15,638,737 |
+| 세션 | 89,700,347 | 88,180,110 |
+
+총 2,790,932개의 이벤트가 제거됐다.
+
+```text
+제거된 이벤트 비율: 0.68%
+```
+
+전체 데이터의 1% 미만에서 정상 사용자와 명확하게 구분되는 비정상 트래픽을 제거했다.
+
+봇 제거 전후의 단순 구매 전환율도 비교했다.
+
+```text
+제거 전 CVR: 1.7772%
+제거 후 CVR: 1.7812%
+변화: +0.0040%p
+```
+
+전체 평균 CVR의 변화는 크지 않았다.
+
+
