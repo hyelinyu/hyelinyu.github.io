@@ -505,4 +505,16 @@ a { color: inherit; text-decoration: none; }
 /* 모바일에서 이미지 더 작게 */
 @media (max-width: 480px) {
   .post-media { max-width: 100%; }
+
+
+.post-media {
+  margin: 18px 0 6px;
+  width: 100%;
+  max-width: 640px;
+  aspect-ratio: 1 / 1;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  background: #0a0a0a;
+}
 }
